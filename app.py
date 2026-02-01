@@ -334,7 +334,7 @@ def add_group():
     finally:
         conn.close()
 
-
+# comment
 @app.route("/api/delete_group", methods=["POST"])
 def delete_group():
     conn = get_db_connection()
