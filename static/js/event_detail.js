@@ -73,7 +73,7 @@ async function loadAssignedItems(eventId) {
                        class="qty-input">
                 <small>/ ${item.anzahl}</small>
             </td>
-            <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="removeAssignment(${item.assignment_id})">🗑</button></td>
+            <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="removeAssignment(${item.assignment_id})" title="Löschen">🗑</button></td>
         `;
         tbody.appendChild(tr);
     });

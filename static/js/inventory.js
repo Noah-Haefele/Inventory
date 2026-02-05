@@ -132,13 +132,13 @@ function addRowToUI(item) {
         <td>
             ${window.canEdit ? `
                 <div class="number-wrapper">
-                    <button style="color: blue;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
+                    <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
                     <input type="number" 
                         value="${item.anzahl || 0}" 
                         min="1" 
                         class="custom-number-input"
                         onchange="checkAndUpdateQty(${item.id}, this)">
-                    <button style="color: red;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
+                    <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
                 </div>` :
             `<span>${item.anzahl}</span>`
         }
@@ -147,7 +147,7 @@ function addRowToUI(item) {
         <td ${editAttr} onblur="updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
         <td class="action-cell">
             <button class="action-icon" onclick="openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">📋</button>
-            ${window.canEdit ? `<button class="del-icon" onclick="deleteItem(${item.id})">🗑</button>` : ''}
+            ${window.canEdit ? `<button class="del-icon" onclick="deleteItem(${item.id})" title="Löschen">🗑</button>` : ''}
         </td>
     `;
     tbody.appendChild(tr);
@@ -207,7 +207,7 @@ async function loadPdfList() {
         div.className = "pdf-entry";
         div.innerHTML = `
             <span style="cursor:pointer; color:#007bff;" onclick="window.open('/${p.filepath}', '_blank')">📄 ${p.filename}</span>
-            ${window.canEdit ? `<button class="del-icon" onclick="deletePdf(${p.id})">🗑</button>` : ''}
+            ${window.canEdit ? `<button class="del-icon" onclick="deletePdf(${p.id})" title="Löschen">🗑</button>` : ''}
         `;
         list.appendChild(div);
     });

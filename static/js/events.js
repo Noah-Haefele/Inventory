@@ -53,9 +53,9 @@ async function loadEvents() {
             <td class="action-cell">
                 <input type="radio" name="activeEvent" 
                        ${evt.is_active ? 'checked data-waschecked="true"' : 'data-waschecked="false"'} 
-                       onclick="toggleActiveEvent(this, ${evt.id})">
-                <button class="action-icon" onclick="window.location.href='/event_detail/${evt.id}'">👁</button>
-                <button class="del-icon" onclick="deleteEvent(${evt.id})">🗑</button>
+                       onclick="toggleActiveEvent(this, ${evt.id})" title="Aktivieren">
+                <button class="action-icon" onclick="window.location.href='/event_detail/${evt.id}'" title="Detail">👁</button>
+                <button class="del-icon" onclick="deleteEvent(${evt.id})" title="Löschen">🗑</button>
             </td>
         `;
         tbody.appendChild(tr);
