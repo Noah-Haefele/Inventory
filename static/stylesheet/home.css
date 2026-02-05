@@ -115,3 +115,28 @@
     justify-content: center;
     flex-shrink: 0;
 }
+
+#newGroupName {
+    background: var(--bg-card);
+    padding:8px; 
+    border:1px solid var(--border-color); 
+    color: var(--text-color); 
+    border-radius:4px; 
+    flex: 1;
+    height: 32px;
+}
+
+#groupListLines {
+    display:flex;
+    justify-content:space-between;
+    padding:10px 5px;
+    border-bottom:1px solid transparent;
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            var(--devider),
+            transparent
+        )
+    bottom / 100% 1px no-repeat;
+}
