@@ -35,13 +35,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     async function saveUserData(element, field, value) {
+        const trimmed = value?.toString().trim();
         const id = element.closest("tr").getAttribute("data-id");
-        const res = await fetch('/api/update_user', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id, field, value })
-        });
-
+        if (trimmed) {
+            const res = await fetch('/api/update_user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, field, value })
+            });
+        }
+        else {
+            alert("FEHLER: Der Name darf nicht leer sein")
+            location.reload(); // sets name to old
+        }
         if (!res.ok) {
             const data = await res.json();
             alert("FEHLER: " + data.error);

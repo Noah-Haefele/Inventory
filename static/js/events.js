@@ -91,11 +91,18 @@ window.toggleActiveEvent = async (radio, id) => {
 };
 
 function updateEvent(id, field, value) {
-    fetch('/api/update_event', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, field, value: value.trim() })
-    });
+    const trimmed = value?.toString().trim();
+    if (trimmed) {
+        fetch('/api/update_event', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, field, value: value.trim() })
+        });
+    }
+    else {
+        alert("FEHLER: Der Name darf nicht leer sein")
+        location.reload(); // sets name to old
+    }
 }
 
 async function deleteEvent(id) {
