@@ -15,11 +15,18 @@ function renderGroupSelect(id, currentGroup) {
 }
 
 window.updateItem = async (id, field, value) => {
-    const res = await fetch('/api/update_inventory', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, field, value: value.toString().trim() })
-    });
+    const trimmed = value?.toString().trim();
+    if (trimmed) {
+        const res = await fetch('/api/update_inventory', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, field, value: value.toString().trim() })
+        });
+    }
+    else {
+        alert("FEHLER: Der Name darf nicht leer sein")
+        location.reload(); // sets name to old
+    }
     if (!res.ok){
         const data = await res.json();
         alert("FEHLER: " + data.error);
