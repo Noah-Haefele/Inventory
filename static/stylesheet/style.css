@@ -11,9 +11,13 @@
     --input-bg: #ffffff;
     --modal-overlay: rgba(0, 0, 0, 0.5);
     --accent-blue: #0004ff;
+    --accent-blue-hover: #0004ffbc;
     --accent-green: #28a745;
+    --accent-green-hover: #28a745bc;
     --accent-red: #ff7777;
+    --accent-red-hover: #ff7777bc;
     --dragdrop-background: #acc9ff;
+    --devider: rgba(0, 0, 0, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,7 +34,9 @@
         --input-bg: #2d2d2d;
         --modal-overlay: rgba(0, 0, 0, 0.8);
         --accent-blue: #4d66ff;
+        --accent-blue-hover: #4d66ffbc;
         --dragdrop-background: #6c9fff;
+        --devider: rgba(255,255,255,0.12);
     }
 }
 
@@ -74,26 +80,12 @@ body {
     cursor: pointer;
 }
 
-
-.sq-btn {
-    width: 32px;
-    height: 32px;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .normal-btn {
     padding: 6px 14px;
     width: 100px;
     border: none;
     border-radius: 6px;
-    color: #ffffff;
+    color: white;
     cursor: pointer;
     transition: background 0.3s ease;
     text-decoration: none;
@@ -104,12 +96,27 @@ body {
     background: var(--accent-blue);
 }
 
+.btn-blue:hover {
+    transition: background 0.3s ease;
+    background: var(--accent-blue-hover);
+}
+
 .btn-green {
     background: var(--accent-green);
 }
 
+.btn-green:hover {
+    transition: background 0.3s ease;
+    background: var(--accent-green-hover);
+}
+
 .btn-red {
     background: var(--accent-red);
+}
+
+.btn-red:hover {
+    transition: background 0.3s ease;
+    background: var(--accent-red-hover);
 }
 
 table {

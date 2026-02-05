@@ -58,7 +58,7 @@ window.removeGroup = async function (id) {
         return;
     }
 
-    if (!confirm("Gruppe wirklich löschen? Alle Artikel darin behalten ihren Gruppennamen, bis du sie änderst.")) return;
+    if (!confirm("Gruppe wirklich löschen? Alle Artikel die dieser Gruppe zugewiesen sind, werden einer anderen Gruppe zugewiesen!")) return;
 
     const res = await fetch('/api/delete_group', {
         method: 'POST',
@@ -78,7 +78,7 @@ function renderGroupList() {
     const list = document.getElementById("groupList");
     if (!list) return;
     list.innerHTML = inventoryGroups.map(g => `
-        <div style="display:flex; justify-content:space-between; padding:5px; border-bottom:1px solid #eee;">
+        <div id="groupListLines">
             <span>${g.name}</span>
             <button class="del-icon" onclick="removeGroup(${g.id})">🗑</button>
         </div>
