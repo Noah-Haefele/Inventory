@@ -36,7 +36,7 @@ window.updateItem = async (id, field, value) => {
 
 window.checkAndUpdateQty = async (id, input) => {
     let val = parseInt(input.value);
-    if (isNaN(val) || val < 0) {
+    if (isNaN(val) || val < 1) {
         val = 1;
         input.value = 1;
     }
@@ -131,7 +131,7 @@ function addRowToUI(item) {
         <td ${editAttr} onblur="updateItem(${item.id}, 'lagerort', this.innerText)">${item.lagerort}</td>
         <td>
             ${window.canEdit ? `
-                <div class="number-wrapper">
+                <div class="number-wrapper" style="width: 100%;">
                     <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
                     <input type="number" 
                         value="${item.anzahl || 0}" 
