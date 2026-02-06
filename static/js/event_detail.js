@@ -40,6 +40,28 @@ window.validateInput = (input, min, max) => {
     input.value = val;
 };
 
+window.UpdateQty = async (id, maxAvailable, input) => {
+    let val = parseInt(input.value);
+    // check for minimum
+    if (isNaN(val) || val < 1) {
+        val = 1;
+        input.value = 1;
+    }
+    else if (val > maxAvailable) {
+        alert(`Nicht genügend Bestand! Maximal ${maxAvailable} verfügbar.`);
+        val = maxAvailable;
+    }
+
+    val = input.value;
+    await fetch('/api/update_assignment_qty', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, anzahl: val })
+    });
+
+    await loadAssignedItems(EVENT_ID);
+};
+
 async function assignSelectedItems(eventId) {
     const checkboxes = document.querySelectorAll(".inv-checkbox:checked");
     const promises = Array.from(checkboxes).map(cb => {
@@ -59,8 +81,8 @@ async function loadAssignedItems(eventId) {
     const res = await fetch(`/api/get_event_items/${eventId}`);
     const items = await res.json();
     const tbody = document.getElementById("assigned-body");
-    tbody.innerHTML = "";
 
+    tbody.innerHTML = "";
     items.forEach(item => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -68,38 +90,25 @@ async function loadAssignedItems(eventId) {
             <td>${item.name_id}</td>
             <td>${item.lagerort}</td>
             <td class="qty-column">
-                <input type="number" value="${item.assigned_qty}" min="1" max="${item.anzahl}" 
-                       onchange="validateAndSaveQty(${item.assignment_id}, this, ${item.anzahl})" 
-                       class="qty-input">
-                <small>/ ${item.anzahl}</small>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="number-wrapper" style="width: 80%;">
+                        <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
+                            <input type="number" 
+                                value="${item.assigned_qty || 0}" 
+                                min="1" 
+                                max="${item.anzahl}"
+                                class="custom-number-input"
+                                onchange="UpdateQty(${item.assignment_id},${item.anzahl}, this)">
+                        <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
+                    </div>
+                    <small>/ ${item.anzahl}</small>
+                </div>
             </td>
             <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="removeAssignment(${item.assignment_id})" title="Löschen">🗑</button></td>
         `;
         tbody.appendChild(tr);
     });
 }
-
-window.validateAndSaveQty = async (assignmentId, input, maxAvailable) => {
-    let val = parseInt(input.value);
-
-    // check for minimum
-    if (isNaN(val) || val < 1) {
-        val = 1;
-    }
-    // check for maximum (stock)
-    else if (val > maxAvailable) {
-        alert(`Nicht genügend Bestand! Maximal ${maxAvailable} verfügbar.`);
-        val = maxAvailable;
-    }
-
-    input.value = val;
-
-    await fetch('/api/update_assignment_qty', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: assignmentId, anzahl: val })
-    });
-};
 
 window.removeAssignment = async (id) => {
     if (!confirm("Gerät von Veranstaltung entfernen?")) return;

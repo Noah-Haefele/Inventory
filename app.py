@@ -387,6 +387,8 @@ def assign_item():
 def update_assignment_qty():
     d = request.json
     conn = get_db_connection()
+    print(d["anzahl"])
+    print(d["id"])
     conn.execute(
         "UPDATE event_assignments SET anzahl = ? WHERE id = ?", (d["anzahl"], d["id"])
     )
