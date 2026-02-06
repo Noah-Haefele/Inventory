@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventur - Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
-</head>
-<body class="login-page">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inventur - Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
+    </head>
 
-    <div class="login-container">
-        <form class="login-card" method="POST" action="{{ url_for('login') }}">
-            <h2>Anmelden</h2>
-            <p>Bitte geben Sie Ihre Zugangsdaten ein.</p>
-            
-            {% with messages = get_flashed_messages() %}
+    <body class="login-page">
+        <div class="login-container">
+            <form class="login-card" method="POST" action="{{ url_for('login') }}">
+                <h2 style="margin-bottom: 20px;">Anmelden</h2>
+
+                {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <div style="color: red; margin-bottom: 15px;">
-                        {{ messages[0] }}
-                    </div>
+                <div style="color: red; margin-bottom: 10px; font-size: small;">
+                    {{ messages[0] }}
+                </div>
                 {% endif %}
-            {% endwith %}
+                {% endwith %}
 
-            <div class="input-group">
-                <label for="username">Benutzername</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+                <div class="input-group">
+                    <label for="username">Benutzername</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
 
-            <div class="input-group">
-                <label for="password">Passwort</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <button type="submit" class="login-btn">Einloggen</button>
-        </form>
-    </div>
-
-</body>
+                <div class="input-group">
+                    <label for="password">Passwort</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="login-btn">Einloggen</button>
+            </form>
+        </div>
+    </body>
 </html>
