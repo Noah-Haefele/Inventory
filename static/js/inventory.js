@@ -4,15 +4,15 @@ async function loadGroups() {
     const res = await fetch('/api/get_groups');
     inventoryGroups = await res.json();
     renderGroupList();
-    updateAllDropdowns();
-}
+    loadInventory();
+};
 
 // helper function for the drop-down in the table
 function renderGroupSelect(id, currentGroup) {
     return `<select class="group-select" onchange="updateItem(${id}, 'gruppe', this.value)">
         ${inventoryGroups.map(g => `<option value="${g.name}" ${g.name === currentGroup ? 'selected' : ''}>${g.name}</option>`).join('')}
     </select>`;
-}
+};
 
 window.updateItem = async (id, field, value) => {
     const trimmed = value?.toString().trim();
@@ -22,16 +22,16 @@ window.updateItem = async (id, field, value) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id, field, value: value.toString().trim() })
         });
+        if (!res.ok) {
+            const data = await res.json();
+            alert("FEHLER: " + data.error);
+            location.reload(); // sets name to old 
+        };
     }
     else {
         alert("FEHLER: Der Name darf nicht leer sein")
         location.reload(); // sets name to old
-    }
-    if (!res.ok){
-        const data = await res.json();
-        alert("FEHLER: " + data.error);
-        location.reload(); // sets name to old 
-    }
+    };
 };
 
 window.checkAndUpdateQty = async (id, input) => {
@@ -55,8 +55,13 @@ window.addGroup = async function () {
         body: JSON.stringify({ name })
     });
     const data = await res.json();
-    if (res.ok) { input.value = ""; await loadGroups(); }
-    else { alert(data.error); }
+    if (res.ok) { 
+        input.value = "";
+        await loadGroups(); 
+    }
+    else { 
+        alert(data.error); 
+    };
 };
 
 window.removeGroup = async function (id) {
@@ -90,29 +95,22 @@ function renderGroupList() {
             <button class="del-icon" onclick="removeGroup(${g.id})">🗑</button>
         </div>
     `).join('');
-}
-
-function updateAllDropdowns() {
-    loadInventory();
-}
+};
 
 async function loadInventory() {
     const res = await fetch('/api/get_inventory');
     const items = await res.json();
     const tbody = document.getElementById("home-table-body");
-    if (tbody) {
-        tbody.innerHTML = "";
-        items.forEach(addRowToUI);
-    }
 
-}
+    tbody.innerHTML = "";
+    items.forEach(addRowToUI);
+};
 
 
 function addRowToUI(item) {
     window.canEdit = (typeof USER_ROLE !== 'undefined' && (USER_ROLE === 'Administrator' || USER_ROLE === 'Editor'));
     const tbody = document.getElementById("home-table-body");
     const tr = document.createElement("tr");
-
 
     const editAttr = window.canEdit ? 'contenteditable="true"' : 'contenteditable="false"';
     const aktuellVal = (item.aktuell !== undefined) ? item.aktuell : item.anzahl;
@@ -151,7 +149,7 @@ function addRowToUI(item) {
         </td>
     `;
     tbody.appendChild(tr);
-}
+};
 
 // --- PDF MODAL ---
 let currentPdfItemId = null;
@@ -162,7 +160,7 @@ function openPdfModal(id, name) {
     toggleModal('pdfModal', true);
     initPdfHandlers();
     loadPdfList();
-}
+};
 
 function initPdfHandlers() {
     const dropZone = document.getElementById('dropZone');
@@ -179,7 +177,7 @@ function initPdfHandlers() {
         dropZone.classList.remove('drag-over');
         handleFiles(e.dataTransfer.files);
     };
-}
+};
 
 async function handleFiles(files) {
     for (let file of files) {
@@ -194,7 +192,7 @@ async function handleFiles(files) {
         await fetch('/api/upload_pdf', { method: 'POST', body: formData });
     }
     loadPdfList();
-}
+};
 
 async function loadPdfList() {
     const res = await fetch(`/api/get_pdfs/${currentPdfItemId}`);
@@ -211,7 +209,7 @@ async function loadPdfList() {
         `;
         list.appendChild(div);
     });
-}
+};
 
 async function deletePdf(id) {
     if (!confirm("PDF löschen?")) return;
@@ -221,7 +219,7 @@ async function deletePdf(id) {
         body: JSON.stringify({ id })
     });
     loadPdfList();
-}
+};
 
 window.deleteItem = async (id, btn) => {
     if (confirm("Löschen?")) {
