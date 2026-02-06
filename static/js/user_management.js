@@ -43,16 +43,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id, field, value })
             });
+            if (!res.ok) {
+                const data = await res.json();
+                alert("FEHLER: " + data.error);
+                location.reload(); // sets name to old 
+            }
         }
         else {
             alert("FEHLER: Der Name darf nicht leer sein")
             location.reload(); // sets name to old
         }
-        if (!res.ok) {
-            const data = await res.json();
-            alert("FEHLER: " + data.error);
-            location.reload(); // sets name to old 
-        }
+
     }
 
     if (addUserBtn) {
