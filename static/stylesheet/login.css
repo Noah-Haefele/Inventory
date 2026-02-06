@@ -37,6 +37,11 @@
     font-size: 16px;
     background: var(--input-bg);
     color: var(--text-main);
+    transition: transform 0.3s ease;
+}
+
+.input-group input:hover {
+    transform: scale(101%);
 }
 
 .login-btn {
@@ -48,4 +53,12 @@
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    transition: 
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+.login-btn:hover {
+    background: var(--accent-blue-hover);
+    transform: scale(101%);
 }
