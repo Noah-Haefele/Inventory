@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a self-developed inventory management system with a Python Flask backend and a JavaScript-based frontend. It is designed to manage inventory items, user permissions, and event-based item usage in a structured and reliable way.
+This project is a self-developed inventory management system with a Python Flask backend and a JavaScript-based frontend. It is designed to manage inventory items, user permissions, and event-based item usage in a structured and reliable way.  
 Right now in German but English will follow soon.
   
 The Backend with Python Flask handles data storage, user authentication, and permissions. It provides API endpoints for inventory items, users, and events.
