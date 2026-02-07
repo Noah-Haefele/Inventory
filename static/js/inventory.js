@@ -401,7 +401,7 @@ class InventoryManager {
 }
 
 // Create a global instance
-const inventoryManager = new InventoryManager();
+window.inventoryManager = new InventoryManager();
 
 // Expose methods globally for inline event handlers
 window.toggleModal = (id, show) => inventoryManager.toggleModal(id, show);
