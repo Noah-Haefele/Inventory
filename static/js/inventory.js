@@ -1,5 +1,3 @@
-import { t } from "./i18n.js";
-
 let inventoryGroups = [];
 
 async function loadGroups() {
@@ -235,11 +233,6 @@ window.deleteItem = async (id, btn) => {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-    document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.dataset.i18n;
-        el.textContent = t(key);
-    });
-
     await loadGroups();
     await loadInventory();
 

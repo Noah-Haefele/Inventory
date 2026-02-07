@@ -15,17 +15,17 @@
 <body>
     <nav class="navbar">
         <div class="nav-left">
-            <a href="{{ url_for('home') }}" class="nav-item" data-i18n="home"></a>
-            <a href="{{ url_for('events') }}" class="nav-item" data-i18n="events"></a>
+            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
             {% if role == 'Administrator' %}
-            <a href="{{ url_for('users') }}" class="nav-item" data-i18n="userManagement"></a>
+            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
             {% endif %}
         </div>
         <div class="nav-right">
             <span class="user-name">
-                <span data-i18n="loggedInAs"></span>: {{ username }}
+                <span>Angemeldet als</span>: {{ username }}
             </span>
-            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;" data-i18n="logOutBtn"></a>
+            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
         </div>
     </nav>
 
