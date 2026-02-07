@@ -9,21 +9,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
-    <script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/inventory.js') }}"></script>
 </head>
 
 <body>
     <nav class="navbar">
         <div class="nav-left">
-            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
-            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
+            <a href="{{ url_for('home') }}" class="nav-item" data-i18n="home"></a>
+            <a href="{{ url_for('events') }}" class="nav-item" data-i18n="events"></a>
             {% if role == 'Administrator' %}
-            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
+            <a href="{{ url_for('users') }}" class="nav-item" data-i18n="userManagement"></a>
             {% endif %}
         </div>
         <div class="nav-right">
-            <span class="user-name">Angemeldet als: {{ username }}</span>
-            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
+            <span class="user-name">
+                <span data-i18n="loggedInAs"></span>: {{ username }}
+            </span>
+            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;" data-i18n="logOutBtn"></a>
         </div>
     </nav>
 
