@@ -1,0 +1,32 @@
+input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--accent-blue);
+}
+
+.date-picker-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.date-picker-input:focus {
+    border-color: #0004ff;
+}
+
+.action-icon,
+.del-icon {
+    font-size: 1.1em;
+    border: none;
+    background: none;
+    color: var(--text-main);
+    cursor: pointer;
+}

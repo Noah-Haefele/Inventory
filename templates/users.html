@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inventur</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/users.css') }}">
+    <script src="{{ url_for('static', filename='js/user_management.js') }}"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
+            {% if role == 'Administrator' %}
+            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
+            {% endif %}
+        </div>
+        <div class="nav-right">
+            <span class="user-name">Angemeldet als: {{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Benutzerverwaltung</h1>
+            <button id="add-user-btn" class="mini-add-btn">+</button>
+        </div>
+
+        <table id="user-table">
+            <thead>
+                <tr>
+                    <th>Benutzername</th>
+                    <th>Passwort</th>
+                    <th>Rolle</th>
+                    <th>Information</th>
+                    <th style="width: 90px;">Aktion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# first admin (top-fixed) #}
+                {% for user in users if user['username'] == 'Admin' %}
+                <tr data-id="{{ user['id'] }}">
+                    <td data-field="username" style="background: var(--input-bg);"><strong>{{ user['username'] }}</strong>
+                    </td>
+                    <td contenteditable="true" data-field="password" class="password-cell">••••••••</td>
+                    <td><span class="admin-badge">Administrator</span></td>
+                    <td contenteditable="true" data-field="info">{{ user['info'] }}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+
+                {# then all users #}
+                {% for user in users if user['username'] != 'Admin' %}
+                <tr data-id="{{ user['id'] }}">
+                    <td contenteditable="true" data-field="username">{{ user['username'] }}</td>
+                    <td contenteditable="true" data-field="password" class="password-cell">••••••••</td>
+                    <td>
+                        <select class="role-select" onchange="updateRole(this)">
+                            <option value="Editor" {% if user['role']=='Editor' %}selected{% endif %}>Editor</option>
+                            <option value="User" {% if user['role']=='User' or user['role']=='Benutzer' %}selected{%
+                                endif %}>User</option>
+                        </select>
+                    </td>
+                    <td contenteditable="true" data-field="info">{{ user['info'] }}</td>
+                    <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="deleteRow(this)" title="Löschen">🗑</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

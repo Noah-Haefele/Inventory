@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inventur</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
+    <style>
+        .detail-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: var(--bg-content);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 8px;
+        }
+
+
+        .modal-content {
+            background-color: var(--bg-content);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            width: 600px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #inventory-checklist {
+            margin: 15px 0;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            gap: 10px;
+        }
+
+
+        .qty-column {
+            width: 200px;
+            text-align: center;
+        }
+
+        .qty-input {
+            width: 65px;
+            padding: 5px;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+    <script src="{{ url_for('static', filename='js/event_detail.js') }}"></script>
+    
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
+            {% if role == 'Administrator' %}
+            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
+            {% endif %}
+        </div>
+        <div class="nav-right">
+            <span class="user-name">Angemeldet als: {{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
+        </div>
+    </nav>
+    <div class="content">
+        <a href="{{ url_for('events') }}">← Zurück</a>
+        <div class="detail-container" id="detail-context" data-event-id="{{ event.id }}">
+            <div style="display: flex; justify-content: space-between;">
+                <h2>{{ event.name }}</h2>
+                <button class="square-btn btn-green" id="open-modal-btn">+</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Gruppe</th>
+                        <th>Name</th>
+                        <th>Lagerort</th>
+                        <th class="qty-column">Menge</th>
+                        <th style="width: 80px;">Aktion</th>
+                    </tr>
+                </thead>
+                <tbody id="assigned-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="addItemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Geräte auswählen</h3>
+            </div>
+            <div id="inventory-checklist"></div>
+            <div style="margin-top: 20px; text-align: right;">
+                <button class="normal-btn btn-red" onclick="toggleModal(false)">Abbrechen</button>
+                <button class="normal-btn btn-green" id="confirm-bulk-add-btn">Speichern</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

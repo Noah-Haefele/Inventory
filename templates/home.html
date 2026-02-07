@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inventur</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
+    <script type="module" src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
+            {% if role == 'Administrator' %}
+            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
+            {% endif %}
+        </div>
+        <div class="nav-right">
+            <span class="user-name">
+                <span>Angemeldet als</span>: {{ username }}
+            </span>
+            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Inventurliste</h1>
+            {% if role == 'Administrator' or role == 'Editor'%}
+            <div class="header-actions">
+                <button class="square-btn btn-blue" onclick="toggleModal('groupModal', true)">G</button>
+                <button class="square-btn btn-green" id="add-home-row">+</button>
+            </div>
+            {% endif %}
+        </div>
+
+        <table id="home-table">
+            <thead>
+                <tr>
+                    <th style="width: 150px;">Gruppe</th>
+                    <th>Name</th>
+                    <th style="width: 140px;">Lagerort</th>
+                    <th style="width: 140px;">Anzahl</th>
+                    <th style="width: 140px;">Aktuell </th>
+                    <th style="width: 400px;">Information</th>
+                    {% if role == 'Administrator' or role == 'Editor' %}
+                    <th style="width: 150px; text-align: center;">Aktion</th>
+                    {% else %}
+                    <th style="width: 80px; text-align: center;">Aktion</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody id="home-table-body">
+
+            </tbody>
+        </table>
+    </div>
+
+    <div id="groupModal" class="modal">
+        <div class="modal-content">
+            <h3>Gruppen verwalten</h3>
+            <div id="groupList" style="margin-top: 20px; max-height: 200px; overflow-y: auto;">
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 5px; justify-content: center;">
+                <input type="text" id="newGroupName" placeholder="Neue Gruppe...">
+                <button class="square-btn btn-green" onclick="addGroup()">+</button>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="normal-btn btn-green" onclick="toggleModal('groupModal', false)">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pdfModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <h3 id="pdfModalTitle">Anleitungen</h3>
+            <br>
+            {% if role == 'Administrator' or role == 'Editor' %}
+            <div id="dropZone" class="drop-zone">
+                <p>PDF hierher ziehen oder klicken zum Hochladen</p>
+                <input type="file" id="pdfInput" accept="application/pdf" style="display: none;">
+            </div>
+            {% endif %}
+            <div id="pdfList" style="margin-top: 15px; max-height: 300px; overflow-y: auto;">
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button class="normal-btn btn-green" onclick="toggleModal('pdfModal', false)">Ok</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // Jinja2 replaces role with current user
+    const USER_ROLE = "{{ role }}"; 
+</script>
+
+</html>

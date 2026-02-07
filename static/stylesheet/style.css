@@ -1,0 +1,210 @@
+:root {
+    /* LIGHT MODE */
+    --bg-page: #ffffff;
+    --bg-content: #ffffff;
+    --bg-navbar: rgb(193, 244, 255);
+    --bg-table-header: #f0f0f0;
+    --bg-card: #ffffff;
+    --text-main: #000000;
+    --text-muted: #555555;
+    --border-color: #cccccc;
+    --input-bg: #ffffff;
+    --modal-overlay: rgba(0, 0, 0, 0.5);
+    --accent-blue: #0004ff;
+    --accent-blue-hover: #0004ffbc;
+    --accent-green: #28a745;
+    --accent-green-hover: #28a745bc;
+    --accent-red: #ff7777;
+    --accent-red-hover: #ff7777bc;
+    --dragdrop-background: #acc9ff;
+    --devider: rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* DARK MODE */
+        --bg-page: #121212;
+        --bg-content: #1e1e1e;
+        --bg-navbar: #001a33;
+        --bg-table-header: #2d2d2d;
+        --bg-card: #252525;
+        --text-main: #e0e0e0;
+        --text-muted: #bbbbbb;
+        --border-color: #444444;
+        --input-bg: #2d2d2d;
+        --modal-overlay: rgba(0, 0, 0, 0.8);
+        --accent-blue: #4d66ff;
+        --accent-blue-hover: #4d66ffbc;
+        --dragdrop-background: #6c9fff;
+        --devider: rgba(255,255,255,0.12);
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+}
+
+.content {
+    padding: 20px 30px;
+}
+
+.std-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+}
+
+.role-select {
+    composes: std-input;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--input-bg);
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.normal-btn {
+    padding: 6px 14px;
+    width: 100px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+
+.btn-blue {
+    background: var(--accent-blue);
+}
+
+.btn-blue:hover {
+    transition: background 0.3s ease;
+    background: var(--accent-blue-hover);
+}
+
+.btn-green {
+    background: var(--accent-green);
+}
+
+.btn-green:hover {
+    transition: background 0.3s ease;
+    background: var(--accent-green-hover);
+}
+
+.btn-red {
+    background: var(--accent-red);
+}
+
+.btn-red:hover {
+    transition: background 0.3s ease;
+    background: var(--accent-red-hover);
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 8px 12px;
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    height: 45px;
+    vertical-align: middle;
+    background-color: var(--bg-content);
+    color: var(--text-main);
+}
+
+th:last-child,
+td:last-child {
+    border-right: none;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+thead {
+    background-color: var(--bg-table-header);
+    font-weight: bold;
+}
+
+.password-cell {
+    font-family: monospace;
+}
+
+.action-cell {
+    text-align: center;
+    white-space: nowrap !important;
+}
+
+.action-cell>* {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px;
+}
+
+.del-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+}
+
+.del-icon:hover {
+    color: red;
+    transform: scale(1.3) rotate(-15deg);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--modal-overlay);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    color: var(--text-main);
+    padding: 25px;
+    border-radius: 8px;
+    width: 350px;
+    text-align: center;
+}

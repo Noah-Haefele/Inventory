@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inventur</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
+    <script src="{{ url_for('static', filename='js/events.js') }}"></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
+            {% if role == 'Administrator' %}
+            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
+            {% endif %}
+        </div>
+        <div class="nav-right">
+            <span class="user-name">Angemeldet als: {{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Veranstaltungen</h1>
+            <div class="header-actions">
+                <button class="square-btn btn-green" id="add-event-btn">+</button>
+            </div>
+        </div>
+        <table id="events-table">
+            <thead>
+                <tr>
+                    <th style="width: 150px;">Datum</th>
+                    <th>Event Name</th>
+                    <th>Ort</th>
+                    <th style="width: 280px;">Verantwortlich</th>
+                    <th style="width: 400px;">Info</th>
+                    <th style="width: 150px;">Aktionen</th>
+                </tr>
+            </thead>
+            <tbody id="events-table-body">
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
