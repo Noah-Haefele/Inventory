@@ -1,105 +1,186 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const tableBody = document.querySelector("#user-table tbody");
-    const addUserBtn = document.getElementById("add-user-btn");
+class UserManagement {
+    constructor() {
+        this.tableBody = document.querySelector("#user-table tbody");
+        this.addUserBtn = document.getElementById("add-user-btn");
+        
+        this.init();
+    }
 
-    if (!tableBody) return;
+    init() {
+        if (!this.tableBody) return;
 
-    function attachUserEvents(cell) {
+        this.attachEventListeners();
+        this.initEditableCells();
+    }
+
+    attachEventListeners() {
+        if (this.addUserBtn) {
+            this.addUserBtn.addEventListener("click", () => this.addUser());
+        }
+    }
+
+    initEditableCells() {
+        const editableCells = document.querySelectorAll("#user-table [contenteditable]");
+        editableCells.forEach(cell => this.setupCellEvents(cell));
+    }
+
+    setupCellEvents(cell) {
         const field = cell.getAttribute("data-field");
         if (!field) return;
 
         if (field === "password") {
-            let realValue = "";
-            cell.addEventListener("focus", () => { realValue = ""; cell.innerText = ""; });
-            cell.addEventListener("input", () => {
-                const text = cell.innerText.replace(/\n/g, "");
-                const diff = text.length - realValue.length;
-                if (diff > 0) realValue += text.slice(-diff);
-                else if (diff < 0) realValue = realValue.slice(0, diff);
-                cell.innerText = "•".repeat(realValue.length);
-                const range = document.createRange();
-                const sel = window.getSelection();
-                range.selectNodeContents(cell);
-                range.collapse(false);
-                sel.removeAllRanges();
-                sel.addRange(range);
-            });
-            cell.addEventListener("blur", () => {
-                if (realValue) saveUserData(cell, "password", realValue);
-                cell.innerText = "••••••••";
-                realValue = "";
-            });
+            this.setupPasswordCellEvents(cell);
         } else {
-            cell.addEventListener("blur", () => saveUserData(cell, field, cell.innerText.trim()));
+            cell.addEventListener("blur", () => this.saveUserData(cell, field, cell.innerText.trim()));
         }
     }
 
-    async function saveUserData(element, field, value) {
-        const trimmed = value?.toString().trim();
-        const id = element.closest("tr").getAttribute("data-id");
-        if (trimmed) {
-            const res = await fetch('/api/update_user', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, field, value })
-            });
-            if (!res.ok) {
-                const data = await res.json();
-                alert("FEHLER: " + data.error);
-                location.reload(); // sets name to old 
+    setupPasswordCellEvents(cell) {
+        let realValue = "";
+
+        cell.addEventListener("focus", () => {
+            realValue = "";
+            cell.innerText = "";
+        });
+
+        cell.addEventListener("input", () => {
+            const text = cell.innerText.replace(/\n/g, "");
+            const diff = text.length - realValue.length;
+
+            if (diff > 0) {
+                realValue += text.slice(-diff);
+            } else if (diff < 0) {
+                realValue = realValue.slice(0, diff);
             }
-        }
-        else {
-            alert("FEHLER: Der Name darf nicht leer sein")
-            location.reload(); // sets name to old
-        }
 
-    }
+            cell.innerText = "•".repeat(realValue.length);
+            this.moveCursorToEnd(cell);
+        });
 
-    if (addUserBtn) {
-        addUserBtn.addEventListener("click", () => {
-            fetch('/api/add_user', { method: 'POST' })
-                .then(res => res.json())
-                .then(data => {
-                    location.reload();
-                });
+        cell.addEventListener("blur", () => {
+            if (realValue) {
+                this.saveUserData(cell, "password", realValue);
+            }
+            cell.innerText = "••••••••";
+            realValue = "";
         });
     }
 
-    window.deleteRow = function (btn) {
+    moveCursorToEnd(element) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        
+        range.selectNodeContents(element);
+        range.collapse(false);
+        
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+
+    async saveUserData(element, field, value) {
+        const trimmedValue = value?.toString().trim();
+        const row = element.closest("tr");
+        const id = row.getAttribute("data-id");
+
+        if (!trimmedValue) {
+            this.showError("Der Name darf nicht leer sein");
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/update_user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, field, value: trimmedValue })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                this.showError(errorData.error);
+            }
+        } catch (error) {
+            this.showError("Ein Fehler ist aufgetreten");
+            console.error("Update error:", error);
+        }
+    }
+
+    async addUser() {
+        try {
+            const response = await fetch('/api/add_user', { method: 'POST' });
+            const data = await response.json();
+            location.reload();
+        } catch (error) {
+            this.showError("Benutzer konnte nicht hinzugefügt werden");
+            console.error("Add user error:", error);
+        }
+    }
+
+    showError(message) {
+        alert(`FEHLER: ${message}`);
+        location.reload();
+    }
+
+    // Global methods for onclick events in HTML
+    static deleteRow(btn) {
         if (!confirm("Wirklich löschen?")) return;
+        
         const row = btn.closest("tr");
         const id = row.getAttribute("data-id");
+
         fetch('/api/delete_user', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id })
-        }).then(() => row.remove());
-    };
+        })
+        .then(response => {
+            if (response.ok) {
+                row.remove();
+            } else {
+                throw new Error('Deletion failed');
+            }
+        })
+        .catch(error => {
+            console.error("Delete user error:", error);
+            alert("FEHLER: Benutzer konnte nicht gelöscht werden");
+        });
+    }
 
-    window.updateRole = async function(selectElement) {
+    static async updateRole(selectElement) {
         const row = selectElement.closest("tr");
         const id = row.getAttribute("data-id");
         const value = selectElement.value;
 
-        const res = await fetch('/api/update_user', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                id: id, 
-                field: 'role', 
-                value: value 
-            })
-        });
+        try {
+            const response = await fetch('/api/update_user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    id: id, 
+                    field: 'role', 
+                    value: value 
+                })
+            });
 
-        if (!res.ok) {
-            const data = await res.json();
-            alert("FEHLER beim Speichern der Rolle: " + data.error);
-            location.reload();
-        } else {
-            console.log("Rolle erfolgreich aktualisiert");
+            if (!response.ok) {
+                const errorData = await response.json();
+                alert(`FEHLER beim Speichern der Rolle: ${errorData.error}`);
+                location.reload();
+            } else {
+                console.log("Rolle erfolgreich aktualisiert");
+            }
+        } catch (error) {
+            console.error("Update role error:", error);
+            alert("FEHLER: Rolle konnte nicht aktualisiert werden");
         }
-    };
+    }
+}
 
-    document.querySelectorAll("#user-table [contenteditable]").forEach(attachUserEvents);
+// Initialize the user management when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    // Make static methods globally accessible
+    window.deleteRow = UserManagement.deleteRow;
+    window.updateRole = UserManagement.updateRole;
+
+    // Create instance of UserManagement
+    new UserManagement();
 });
