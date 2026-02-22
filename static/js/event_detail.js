@@ -26,7 +26,7 @@ class EventDatailManager {
         }
     }
 
-    static toggleModal(show) {
+    toggleModal(show) {
         document.getElementById("addItemModal").style.display = show ? "flex" : "none";
     }
 
@@ -149,7 +149,7 @@ class EventDatailManager {
 document.addEventListener("DOMContentLoaded", () => {
     window.eventDetailManager = new EventDatailManager();
 
-    window.toggleModal = EventDatailManager.toggleModal;
+    window.toggleModal = (show) => window.eventDetailManager.toggleModal(show);
     window.UpdateQty = EventDatailManager.UpdateQty;
     window.removeAssignment = EventDatailManager.removeAssignment;
     window.validateInput = EventDatailManager.validateInput;
