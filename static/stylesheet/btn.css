@@ -1,0 +1,148 @@
+button {
+    border: none;
+    background-color: transparent;
+}
+
+.button {
+    background-color: var(--accent-blue);
+    color: var(--text-main);
+}
+
+.button:hover {
+    background-color: var(--accent-blue-hover);
+}
+
+.logout {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: calc(1.25 / 0.875);
+    text-decoration: none;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.btn-add-tr {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: var(--accent-blue);
+    color: var(--text-main);
+    border-radius: 6px;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.btn-add-tr:hover {
+    background-color: var(--accent-blue-hover);
+}
+
+.delete-btn {
+    padding: 4px;
+    color: var(--text-main);
+    border-radius: 4px;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.delete-btn:hover {
+    color: var(--accent-red);
+}
+
+.count-minus {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    transition-property: color;
+    color: var(--minus-button);
+}
+
+.count-plus {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    transition-property: color;
+    color: var(--plus-button);
+}
+
+.count-input {
+    width: 40px;
+    text-align: center;
+    background-color: var(--bg-card) !important;
+    border: none;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+.edit-btn {
+    padding: 6px;
+    border-radius: 4px;
+    color: var(--text-muted);
+}
+
+.radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio-btn-custom {
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--border-radio-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-property: all;
+    transition-duration: 300ms;
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+}
+
+.radio-btn-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: transparent;
+    transition-property: all;
+    transition-duration: 300ms;
+    transform: scale(0);
+}
+
+.radio-input:checked+.radio-btn-custom {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+.radio-input:checked+.radio-btn-custom .radio-btn-inner {
+    background-color: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue), 0 0 15px var(--accent-blue);
+    transform: scale(1);
+}
+
+.radio-btn-custom:hover {
+    border-color: var(--border-radio-color-hover);
+}

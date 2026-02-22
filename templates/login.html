@@ -1,39 +1,103 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inventur</title>
-        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
-    </head>
 
-    <body class="login-page">
-        <div class="login-container">
-            <form class="login-card" method="POST" action="{{ url_for('login') }}">
-                <h2 style="margin-bottom: 20px;">Anmelden</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventur - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        // Prüfen, ob der dunkle Modus aktiviert ist
+        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <div style="color: red; margin-bottom: 10px; font-size: small;">
-                    {{ messages[0] }}
+        if (isDarkMode) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3b82f6", // Bright blue from the screenshot
+                        "background-light": "#f8fafc", // Light gray/off-white
+                        "background-dark": "#0f172a", // Very dark navy blue from screenshot
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body
+    class="login-page bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center transition-colors duration-300">
+
+    <div class="login-container w-full max-w-md p-4">
+        <form
+            class="login-card bg-white dark:bg-[#111827] rounded-2xl shadow-xl dark:shadow-2xl border border-slate-100 dark:border-slate-800 p-10 transition-colors duration-300"
+            method="POST" action="{{ url_for('login') }}">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Anmelden</h2>
+                    <p class="text-slate-500 dark:text-slate-400">Bitte geben Sie Ihre Zugangsdaten ein.</p>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div style="color: red; margin-bottom: 15px;">
+                {{ messages[0] }}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                        for="username">Benutzername</label>
+                    <input
+                        class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-primary focus:border-transparent transition-all outline-none"
+                        type="text" id="username" name="username" placeholder="Ihr Benutzername" required>
                 </div>
-                {% endif %}
-                {% endwith %}
 
-                <div class="input-group">
-                    <label for="username">Benutzername</label>
-                    <input type="text" id="username" name="username" required>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
+                        for="password">Passwort</label>
+                    <input
+                        class="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none"
+                        type="password" id="password" name="password" placeholder="••••••••" required>
                 </div>
 
-                <div class="input-group">
-                    <label for="password">Passwort</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
+                <button type="submit"
+                    class="login-btn w-full bg-primary hover:bg-blue-600 text-white font-bold py-3.5 rounded-lg shadow-lg shadow-blue-500/30 transition-all transform active:scale-[0.98]">
+                    Einloggen</button>
+            </div>
+            <div class="mt-8 text-center">
+                <p class="text-sm text-slate-500 dark:text-slate-500">
+                    © 2024 Inventory Management System
+                </p>
+            </div>
+        </form>
 
-                <button type="submit" class="login-btn">Einloggen</button>
-            </form>
-        </div>
-    </body>
+    </div>
+
+</body>
+
 </html>

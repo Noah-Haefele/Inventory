@@ -40,7 +40,7 @@ window.checkAndUpdateQty = async (id, input) => {
         val = 1;
         input.value = 1;
     }
-    
+
     await updateItem(id, 'anzahl', val);
     await loadInventory();
 };
@@ -55,12 +55,12 @@ window.addGroup = async function () {
         body: JSON.stringify({ name })
     });
     const data = await res.json();
-    if (res.ok) { 
+    if (res.ok) {
         input.value = "";
-        await loadGroups(); 
+        await loadGroups();
     }
-    else { 
-        alert(data.error); 
+    else {
+        alert(data.error);
     };
 };
 
@@ -90,9 +90,9 @@ function renderGroupList() {
     const list = document.getElementById("groupList");
     if (!list) return;
     list.innerHTML = inventoryGroups.map(g => `
-        <div id="groupListLines">
+        <div style="display:flex; justify-content:space-between; padding:5px; border-bottom:1px solid #eee;">
             <span>${g.name}</span>
-            <button class="del-icon" onclick="removeGroup(${g.id})">🗑</button>
+            <button class="delete-btn" onclick="removeGroup(${g.id})">🗑</button>
         </div>
     `).join('');
 };
@@ -124,28 +124,38 @@ function addRowToUI(item) {
 
 
     tr.innerHTML = `
-        <td>${window.canEdit ? renderGroupSelect(item.id, item.gruppe) : item.gruppe}</td>
-        <td ${editAttr} onblur="updateItem(${item.id}, 'name_id', this.innerText)">${item.name_id}</td>
-        <td ${editAttr} onblur="updateItem(${item.id}, 'lagerort', this.innerText)">${item.lagerort}</td>
-        <td>
+        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px;">${window.canEdit ? renderGroupSelect(item.id, item.gruppe) : item.gruppe}</td>
+        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-weight: 500;" ${editAttr} onblur="updateItem(${item.id}, 'name_id', this.innerText)">${item.name_id}</td>
+        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; color: var(--text-muted);" ${editAttr} onblur="updateItem(${item.id}, 'lagerort', this.innerText)">${item.lagerort}</td>
+        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px;>
             ${window.canEdit ? `
-                <div class="number-wrapper" style="width: 100%;">
-                    <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
-                    <input type="number" 
+                <div class="count-div">
+                    <button class="count-minus" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
+                    <input class="count-input"   
+                        type="number"
                         value="${item.anzahl || 0}" 
                         min="1" 
                         class="custom-number-input"
                         onchange="checkAndUpdateQty(${item.id}, this)">
-                    <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
+                    <button class="count-plus" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
                 </div>` :
             `<span>${item.anzahl}</span>`
         }
         </td>
-        <td style="background: var(--input-bg); color: var(--text-main);">${item.aktuell}</td>
-        <td ${editAttr} onblur="updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
-        <td class="action-cell">
-            <button class="action-icon" onclick="openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">📋</button>
-            ${window.canEdit ? `<button class="del-icon" onclick="deleteItem(${item.id})" title="Löschen">🗑</button>` : ''}
+        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-weight: 600;">${item.aktuell}</td>
+        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-weight: 500; color: var(--text-muted);" ${editAttr} onblur="updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
+        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; text-align: right;">
+            <div class="actions">
+                <button class="edit-btn"
+                    onclick="openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">
+                    <span class="material-icons-outlined text-sm">📋</span>
+                    </button>
+                ${window.canEdit ? `
+                <button class="delete-btn"
+                    onclick="deleteItem(${item.id})">
+                    🗑
+                </button>` : ''}
+            </div>
         </td>
     `;
     tbody.appendChild(tr);
@@ -160,7 +170,7 @@ function openPdfModal(id, name) {
     toggleModal('pdfModal', true);
     initPdfHandlers();
     loadPdfList();
-};
+}
 
 function initPdfHandlers() {
     const dropZone = document.getElementById('dropZone');
@@ -204,8 +214,19 @@ async function loadPdfList() {
         const div = document.createElement("div");
         div.className = "pdf-entry";
         div.innerHTML = `
-            <span style="cursor:pointer; color:#007bff;" onclick="window.open('/${p.filepath}', '_blank')">📄 ${p.filename}</span>
-            ${window.canEdit ? `<button class="del-icon" onclick="deletePdf(${p.id})" title="Löschen">🗑</button>` : ''}
+            <div
+                class="pdf-modal-list-item">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <span
+                        class="material-symbols-outlined text-slate-600 dark:text-slate-700 text-xl flex-shrink-0">description</span>
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-800 truncate" onclick="window.open('/${p.filepath}', '_blank')">${p.filename}</span>
+                ${window.canEdit ? `
+                </div>
+                <button class="delete-btn"
+                    onclick="deletePdf(${p.id})">
+                   🗑
+                </button>` : ''}
+            </div>
         `;
         list.appendChild(div);
     });

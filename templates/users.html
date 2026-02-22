@@ -3,77 +3,124 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Inventur</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <title>Inventur - Benutzerverwaltung</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/users.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/btn.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/tables.css') }}">
     <script src="{{ url_for('static', filename='js/user_management.js') }}"></script>
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
-            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
-            {% if role == 'Administrator' %}
-            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
-            {% endif %}
-        </div>
-        <div class="nav-right">
-            <span class="user-name">Angemeldet als: {{ username }}</span>
-            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
-        </div>
-    </nav>
+    <header>
+        <div class="headercon1">
+            <div class="headercon2">
 
-    <div class="content">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h1>Benutzerverwaltung</h1>
-            <button id="add-user-btn" class="mini-add-btn">+</button>
+                <nav class="navbar">
+                    <div class="nav-left">
+                        <a href="{{ url_for('home') }}" class="header-link-muted">Home</a>
+                        <a href="{{ url_for('events') }}" class="header-link-muted">Veranstaltungen</a>
+                        {% if role == 'Administrator' %}
+                        <a href="{{ url_for('users') }}" class="header-link">Benutzerverwaltung</a>
+                        {% endif %}
+                    </div>
+                </nav>
+                <div style="display: flex; align-items: center; margin-left: 24px;">
+                    <div
+                        style="display: flex; align-items: center; margin-left: 8px; font-size: 14px; line-height: 20px;">
+                        <span class="header-content-muted">Angemeldet als:</span>
+                        <span class="header-content">{{ username }}</span>
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout button">
+                        Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="top-bar">
+            <div>
+                <h1 class="h1">Benutzerverwaltung</h1>
+                <p class="undertitle">Verwalten Sie Ihre Nutzer.</p>
+            </div>
+            <button class="btn-add-tr" id="add-user-btn">
+                Neuer Benutzer
+            </button>
         </div>
 
-        <table id="user-table">
-            <thead>
-                <tr>
-                    <th>Benutzername</th>
-                    <th>Passwort</th>
-                    <th>Rolle</th>
-                    <th>Information</th>
-                    <th style="width: 90px;">Aktion</th>
-                </tr>
-            </thead>
-            <tbody>
-                {# first admin (top-fixed) #}
-                {% for user in users if user['username'] == 'Admin' %}
-                <tr data-id="{{ user['id'] }}">
-                    <td data-field="username" style="background: var(--input-bg);"><strong>{{ user['username'] }}</strong>
-                    </td>
-                    <td contenteditable="true" data-field="password" class="password-cell">••••••••</td>
-                    <td><span class="admin-badge">Administrator</span></td>
-                    <td contenteditable="true" data-field="info">{{ user['info'] }}</td>
-                    <td></td>
-                </tr>
-                {% endfor %}
+        <div class="table-container">
+            <div style="overflow-x: auto;">
+                <table id="user-table">
+                    <thead>
+                        <tr class="tr-header">
+                            <th class="th-header">
+                                Benutzername</th>
+                            <th class="th-header">
+                                Passwort</th>
+                            <th class="th-header">
+                                Rolle</th>
+                            <th class="th-header">
+                                Information</th>
+                            <th class="th-header" style="text-align: left;">
+                                Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {# first admin (top-fixed) #}
+                        {% for user in users if user['username'] == 'Admin' %}
+                        <tr data-id="{{ user['id'] }}">
+                            <td class="content" data-field="username" style="background: var(--input-bg);">
+                                <strong>{{
+                                    user['username']
+                                    }}
+                                </strong>
+                            </td>
+                            <td class="content" style="color: var(--text-muted);" contenteditable="true"
+                                data-field="password" class="password-cell">
+                                ••••••••
+                            </td>
+                            <td class="content"><span class="admin-badge">Administrator</span></td>
+                            <td class="content" style="color: var(--text-muted);" contenteditable="true"
+                                data-field="info">{{ user['info'] }}</td>
+                            <td class="content"></td>
+                        </tr>
+                        {% endfor %}
 
-                {# then all users #}
-                {% for user in users if user['username'] != 'Admin' %}
-                <tr data-id="{{ user['id'] }}">
-                    <td contenteditable="true" data-field="username">{{ user['username'] }}</td>
-                    <td contenteditable="true" data-field="password" class="password-cell">••••••••</td>
-                    <td>
-                        <select class="role-select" onchange="updateRole(this)">
-                            <option value="Editor" {% if user['role']=='Editor' %}selected{% endif %}>Editor</option>
-                            <option value="User" {% if user['role']=='User' or user['role']=='Benutzer' %}selected{%
-                                endif %}>User</option>
-                        </select>
-                    </td>
-                    <td contenteditable="true" data-field="info">{{ user['info'] }}</td>
-                    <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="deleteRow(this)" title="Löschen">🗑</button></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                        {# then all users #}
+                        {% for user in users if user['username'] != 'Admin' %}
+                        <tr data-id="{{ user['id'] }}">
+                            <td class="content" contenteditable="true" data-field="username">{{ user['username'] }}</td>
+                            <td class="content" style="color: var(--text-muted);" contenteditable="true"
+                                data-field="password" class="password-cell">
+                                ••••••••
+                            </td>
+                            <td class="content">
+                                <div class="role-selector-container">
+                                    <select
+                                        class="role-selector"
+                                        onchange="updateRole(this)">
+                                        <option value="Editor" {% if user['role']=='Editor' %}selected{% endif %}>Editor
+                                        </option>
+                                        <option value="User" {% if user['role']=='User' or user['role']=='Benutzer'
+                                            %}selected{% endif %}>User</option>
+                                    </select>
+                                    <div
+                                        class="role-selector-arrow">
+                                        ˅</div>
+                                </div>
+                            </td>
+                            <td class="content" style="color: var(--text-muted);" contenteditable="true"
+                                data-field="info">{{ user['info'] }}</td>
+                            <td class="content"><button class="delete-btn" onclick="deleteRow(this)">🗑</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>
