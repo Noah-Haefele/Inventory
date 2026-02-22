@@ -54,6 +54,19 @@ class EventDatailManager {
         );
     }
 
+    static removeAssignment = async (id) => {
+        if (!confirm("Gerät von Veranstaltung entfernen?")) return;
+        await fetch('/api/remove_assignment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify( {id} )
+        });
+        const container = document.getElementById("detail-context");
+        window.eventDetailManager.loadAssignedItems(
+            container.getAttribute("data-event-id")
+        );
+    }
+
     async assignSelectedItems(eventId) {
         const checkboxes = document.querySelectorAll(".inv-checkbox:checked");
         const promises = Array.from(checkboxes).map(cb => {
@@ -126,4 +139,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.toggleModal = EventDatailManager.toggleModal;
     window.UpdateQty = EventDatailManager.UpdateQty;
+    window.removeAssignment = EventDatailManager.removeAssignment;
 });
