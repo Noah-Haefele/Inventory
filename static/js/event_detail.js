@@ -40,6 +40,7 @@ class EventDatailManager {
         else if (val > maxAvailable) {
             alert(`Nicht genügend Bestand! Maximal ${maxAvailable} verfügbar.`);
             val = maxAvailable;
+            input.value = maxAvailable
         }
 
         await fetch('/api/update_assignment_qty', {
