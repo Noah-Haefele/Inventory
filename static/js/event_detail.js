@@ -67,6 +67,16 @@ class EventDatailManager {
         );
     }
 
+    static validateInput = (input, min, max) => {
+        let val = parseInt(input.value);
+        if (isNaN(val) || val < min) val = min;
+        if (val > max) {
+            alert(`Maximale verfügbare Menge (${max}) überschritten`);
+            val = max;
+        }
+        input.value = val;
+    }
+
     async assignSelectedItems(eventId) {
         const checkboxes = document.querySelectorAll(".inv-checkbox:checked");
         const promises = Array.from(checkboxes).map(cb => {
@@ -140,4 +150,5 @@ document.addEventListener("DOMContentLoaded", () => {
     window.toggleModal = EventDatailManager.toggleModal;
     window.UpdateQty = EventDatailManager.UpdateQty;
     window.removeAssignment = EventDatailManager.removeAssignment;
+    window.validateInput = EventDatailManager.validateInput;
 });
