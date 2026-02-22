@@ -88,7 +88,7 @@ class EventDatailManager {
             });
         });
         await Promise.all(promises);
-        toggleModal(false);
+        EventDatailManager.toggleModal(false);
         this.loadAssignedItems(this.eventId);
     }
 
