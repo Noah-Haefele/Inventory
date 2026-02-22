@@ -30,7 +30,7 @@ class EventDatailManager {
         document.getElementById("addItemModal").style.display = show ? "flex" : "none";
     }
 
-    static UpdateQty = async (id, maxAvailable, input) => {
+    UpdateQty = async (id, maxAvailable, input) => {
         let val = parseInt(input.value);
         // checks for minimum
         if (isNaN(val) || val < 1) {
@@ -40,9 +40,6 @@ class EventDatailManager {
         else if (val > maxAvailable) {
             alert(`Nicht genügend Bestand! Maximal ${maxAvailable} verfügbar.`);
             val = maxAvailable;
-        }
-        else {
-            val = input.value;
         }
 
         await fetch('/api/update_assignment_qty', {
@@ -56,7 +53,7 @@ class EventDatailManager {
         );
     }
 
-    static removeAssignment = async (id) => {
+    removeAssignment = async (id) => {
         if (!confirm("Gerät von Veranstaltung entfernen?")) return;
         await fetch('/api/remove_assignment', {
             method: 'POST',
@@ -69,7 +66,7 @@ class EventDatailManager {
         );
     }
 
-    static validateInput = (input, min, max) => {
+    validateInput = (input, min, max) => {
         let val = parseInt(input.value);
         if (isNaN(val) || val < min) val = min;
         if (val > max) {
@@ -150,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.eventDetailManager = new EventDatailManager();
 
     window.toggleModal = (show) => window.eventDetailManager.toggleModal(show);
-    window.UpdateQty = EventDatailManager.UpdateQty;
-    window.removeAssignment = EventDatailManager.removeAssignment;
-    window.validateInput = EventDatailManager.validateInput;
+    window.UpdateQty = (id, maxAvailable, input) => window.eventDetailManager.UpdateQty(id, maxAvailable, input);
+    window.removeAssignment = (id) => window.eventDetailManager.removeAssignment(id);
+    window.validateInput = (input, min, max) => window.eventDetailManager.validateInput(input, min, max);
 });
