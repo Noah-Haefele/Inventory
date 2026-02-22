@@ -19,7 +19,7 @@ class EventDatailManager {
 
     attachEventListeners() {
         if (this.openModalButton) {
-            this.openModalButton.onclick = () => toggleModal(true);
+            this.openModalButton.onclick = () => EventDatailManager.toggleModal(true);
         }
         if (this.confirmAddButton) {
             this.confirmAddButton.onclick = () => this.assignSelectedItems(this.eventId);
