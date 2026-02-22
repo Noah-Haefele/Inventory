@@ -90,7 +90,7 @@ class EventDatailManager {
             });
         });
         await Promise.all(promises);
-        EventDatailManager.toggleModal(false);
+        this.toggleModal(false);
         this.loadAssignedItems(this.eventId);
     }
 
