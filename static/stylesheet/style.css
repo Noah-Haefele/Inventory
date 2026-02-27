@@ -95,10 +95,21 @@ body {
     font-family: Inter, sans-serif;
     background-color: var(--bg-page);
     color: var(--text-main);
-    min-height: 100vh;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
+    flex-direction: column;
+    min-height: 100vh;
+    /* total viewport height */
+    margin: 0;
+    justify-content: space-between;
+    /* Footer stays down */
+}
+
+main {
+    min-height: 80vh;
+    max-height: 80vh;
+    overflow: auto;
 }
 
 @media (width >=40rem) {
@@ -182,38 +193,42 @@ input[type="file"]::file-selector-button {
     cursor: pointer;
 }
 
-footer {
+.site-footer {
     display: flex;
-    color: var(--text-muted);
-    margin-top: 32px;
-    text-align: center;
-    flex-direction: column;
+    height: 10vh !important;
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
     align-items: center;
-}
-
-footer a {
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 20px;
-    text-decoration: none;
-    padding: 6px 0;
-}
-
-footer a:hover::after {
-    color: var(--text-main);
+    justify-content: center;
     width: 100%;
+    background-color: var(--bg-page);
+    flex-shrink: 0;
+    /* Prevents the footer from being compressed */
 }
 
-footer a::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    color: var(--text-main);
-    background-color: var(--text-main);
-    transition: width 0.3s ease;
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
 
-footer a:hover {
+.footer-links a {
+    color: var(--text-muted);
+    /* Uses your existing text color */
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.2s ease;
+    opacity: 0.7;
+}
+
+.footer-links a:hover {
     color: var(--text-main);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-divider {
+    color: var(--border-color);
+    user-select: none;
 }

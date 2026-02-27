@@ -11,52 +11,51 @@
 </head>
 
 <body class="login-page">
-
-    <div class="login-container">
-        <form class="login-card" method="POST" action="{{ url_for('login') }}">
-            <div>
-                <h2 class="login-header">Anmelden</h2>
-                <p class="login-undertitle">Bitte geben Sie Ihre Zugangsdaten ein.</p>
-            </div>
-
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div style="color: red; margin-bottom: 15px;">
-                {{ messages[0] }}
-            </div>
-            {% endif %}
-            {% endwith %}
-
-            <div class="input-container">
+    <div style="min-height: 90vh; align-items: center; display: flex;">
+        <div class="login-container">
+            <form class="login-card" method="POST" action="{{ url_for('login') }}">
                 <div>
-                    <label class="input-group-label" for="username">Benutzername</label>
-                    <input class="input-group-input" type="text" id="username" name="username"
-                        placeholder="Ihr Benutzername" required>
+                    <h2 class="login-header">Anmelden</h2>
+                    <p class="login-undertitle">Bitte geben Sie Ihre Zugangsdaten ein.</p>
                 </div>
 
-                <div>
-                    <label class="input-group-label" for="password">Passwort</label>
-                    <input class="input-group-input" type="password" id="password" name="password"
-                        placeholder="••••••••" required>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div style="color: red; margin-bottom: 15px;">
+                    {{ messages[0] }}
                 </div>
+                {% endif %}
+                {% endwith %}
 
-                <button type="submit" class="login-btn">
-                    Einloggen</button>
-            </div>
-            <div class="footer-container">
-                <div>
-                    <p class="footer-container">
-                        © 2026 Inventory Management System
-                    </p>
-                </div>
-                <div style="width: min-content;">
-                    <a class="footer-container"
-                        href="https://home.graf-rasso-gymnasium.de/home/impressum/">Impressum</a>
-                </div>
-            </div>
-        </form>
+                <div class="input-container">
+                    <div>
+                        <label class="input-group-label" for="username">Benutzername</label>
+                        <input class="input-group-input" type="text" id="username" name="username"
+                            placeholder="Ihr Benutzername" required>
+                    </div>
 
+                    <div>
+                        <label class="input-group-label" for="password">Passwort</label>
+                        <input class="input-group-input" type="password" id="password" name="password"
+                            placeholder="••••••••" required>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        Einloggen</button>
+                </div>
+            </form>
+
+        </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="https://home.graf-rasso-gymnasium.de/home/impressum/" target="_blank">Impressum</a>
+            <span class="footer-divider">|</span>
+            <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/"
+                target="_blank">Datenschutzhinweise</a>
+        </div>
+    </footer>
 
 </body>
 

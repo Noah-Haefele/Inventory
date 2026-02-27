@@ -22,6 +22,8 @@
 .navbar {
     display: flex;
     margin-left: 32px;
+    height: 10vh;
+    align-items: center;
 }
 
 .nav-right {
