@@ -3,6 +3,7 @@
     --bg-page: #f8fafc;
     --bg-content: #ffffff;
     --bg-navbar: #3b82f6;
+    --button-color: #fff;
     --bg-table-header: #f8fafcbb;
     --bg-tcontent-hover: #f8fafc;
     --bg-drop: rgb(239, 246, 255 / 50);
@@ -12,7 +13,7 @@
     --text-main: #1e293b;
     --text-muted: #797979;
     --login-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --border-color: rgb(226, 232, 240);
+    --border-color: #c2c7ce;
     --border-drop: rgb(96, 165, 250 / 50);
     --border-drop-hover: rgb(59 130 246);
     --input-bg: #ffffff;
@@ -48,8 +49,8 @@
         --border-drop: rgb(59, 130, 246 / 30);
         --border-drop-hover: #3b82f6;
         --input-bg: var(--bg-content);
-        --modal-overlay: ;
-        --accent-blue: #155dfb;
+        --button-color: #fff;
+        --accent-blue: #2d6fff;
         --accent-blue-hover: #1d4ed8;
         --modal-list-text: rgb(51 65 85);
         --dragdrop-background: ;
@@ -198,8 +199,9 @@ input[type="file"]::file-selector-button {
 .count-div {
     display: flex;
     align-items: center;
-    border: solid;
-    border-color: var(--border-color);
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: #000;
     border-radius: 6px;
     font-size: 14px;
     line-height: 20px;
@@ -218,4 +220,36 @@ input[type="file"]::file-selector-button {
 
 .uploadfile:hover {
     cursor: pointer;
+}
+
+footer {
+    display: flex;
+    color: var(--text-muted);
+    margin-top: 32px;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer a {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration: none;
+    padding: 6px 0;
+}
+
+footer a:hover::after {
+    color: var(--text-main);
+    width: 100%;
+}
+
+footer a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    color: var(--text-main);
+    background-color: var(--text-main);
+    transition: width 0.3s ease;
 }

@@ -13,6 +13,8 @@ button {
 }
 
 .logout {
+    margin-left: 10px;
+    color: var(--button-color);
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 8px;
@@ -37,7 +39,7 @@ button {
     padding-top: 8px;
     padding-bottom: 8px;
     background-color: var(--accent-blue);
-    color: var(--text-main);
+    color: var(--button-color);
     border-radius: 6px;
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -62,6 +64,7 @@ button {
 
 .delete-btn:hover {
     color: var(--accent-red);
+    cursor: pointer;
 }
 
 .count-minus {
@@ -146,3 +149,21 @@ button {
 .radio-btn-custom:hover {
     border-color: var(--border-radio-color-hover);
 }
+
+.login-btn {
+    margin-top: 36px;
+    width: 100%;
+    background-color: var(--accent-blue);
+    color: var(--button-color);
+    font-weight: 700;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px #3b82f6, 0 4px 6px -4px #3b82f6;
+    transition-property: all;
+    transform: scale(0.98);
+}
+
+.login-btn:hover {
+    background-color: var(--accent-blue-hover);
+} 

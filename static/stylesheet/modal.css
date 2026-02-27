@@ -152,7 +152,7 @@
 
 .pdf-modal-footer button {
     background-color: var(--accent-blue);
-    color: var(--text-main);
+    color: var(--button-color);
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 40px;
@@ -220,12 +220,12 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--button-color);
 }
 
 .assign-item-save-btn {
     background-color: var(--accent-blue);
-    color: var(--text-main);
+    color: var(--button-color);
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 40px;

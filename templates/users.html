@@ -45,8 +45,8 @@
                 <h1 class="h1">Benutzerverwaltung</h1>
                 <p class="undertitle">Verwalten Sie Ihre Nutzer.</p>
             </div>
-            <button class="btn-add-tr" id="add-user-btn">
-                Neuer Benutzer
+            <button class="btn-add-tr" id="add-user-btn" title="Add User">
+                +
             </button>
         </div>
 
@@ -96,20 +96,18 @@
                                 data-field="password" class="password-cell">
                                 ••••••••
                             </td>
-                            <td class="content">
-                                <div class="role-selector-container">
-                                    <select
-                                        class="role-selector"
-                                        onchange="updateRole(this)">
-                                        <option value="Editor" {% if user['role']=='Editor' %}selected{% endif %}>Editor
-                                        </option>
-                                        <option value="User" {% if user['role']=='User' or user['role']=='Benutzer'
-                                            %}selected{% endif %}>User</option>
-                                    </select>
-                                    <div
-                                        class="role-selector-arrow">
-                                        ˅</div>
-                                </div>
+                            <td class="content"
+                                style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-size: 14px; line-height: 20px; white-space: nowrap;">
+                                <select
+                                    style="color: #36454F; border-width: 1px; border-color: var(--border-color); background-color: var(--bg-card); color: var(--text-main); font-size: 12px; line-height: 16px; padding-left: 8px; padding-right: 8px; padding-top: 4px; padding-bottom: 4px; border-radius: 6px; outline: none; transition: all 0.2s ease-in-out; width: 128px;"
+                                    onchange="updateRole(this)">
+                                    <option value="Editor" {% if user['role']=='Editor' %}selected{% endif %}>Editor
+                                    </option>
+                                    <option value="User" {% if user['role']=='User' or user['role']=='Benutzer'
+                                        %}selected{% endif %}>User</option>
+                                </select>
+                                <div class="role-selector-arrow">
+                                    ˅</div>
                             </td>
                             <td class="content" style="color: var(--text-muted);" contenteditable="true"
                                 data-field="info">{{ user['info'] }}</td>
@@ -121,6 +119,9 @@
             </div>
         </div>
     </main>
+    <footer>
+        <a href="https://home.graf-rasso-gymnasium.de/home/impressum/">Impressum</a>
+    </footer>
 </body>
 
 </html>

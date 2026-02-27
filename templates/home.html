@@ -31,7 +31,7 @@
                 </nav>
                 <div style="display: flex; align-items: center; margin-left: 24px;">
                     <div
-                        style="display: flex; align-items: center; margin-left: 8px; font-size: 14px; line-height: 20px;">
+                        style="display: flex; align-items: center; margin-right: 8px; font-size: 14px; line-height: 20px;">
                         <span class="header-content-muted" data-i18n="loggedInAs">Angemeldet als:</span>
                         <span class="header-content">{{ username }}</span>
                     </div>
@@ -50,11 +50,11 @@
             </div>
             {% if role == 'Administrator' or role == 'Editor'%}
             <div style="display: flex; gap: 12px;">
-                <button class="btn-add-tr" onclick="toggleModal('groupModal', true)">
-                    Add Group
+                <button class="btn-add-tr" onclick="toggleModal('groupModal', true)" title="Manage Groups">
+                    G
                 </button>
-                <button class="btn-add-tr" id="add-home-row">
-                    Neuer Artikel
+                <button class="btn-add-tr" id="add-home-row" title="Add Item">
+                    +
                 </button>
                 {% endif %}
             </div>
@@ -92,6 +92,10 @@
         </div>
     </main>
 
+    <footer>
+        <a href="https://home.graf-rasso-gymnasium.de/home/impressum/">Impressum</a>
+    </footer>
+
     <div id="groupModal" class="modal">
         <div class="modal-main">
             <div class="modal-header-con">
@@ -103,7 +107,7 @@
                 </div>
                 <div class="group-modal-new-group">
                     <input type="text" id="newGroupName" placeholder="Neue Gruppe..." class="group-modal-new-group">
-                    <button class="group-modal-new-group" onclick="addGroup()"> +
+                    <button class="btn-add-tr" onclick="addGroup()"> +
                     </button>
                 </div>
                 <div class="modal-footer">

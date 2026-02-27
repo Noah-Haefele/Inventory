@@ -7,18 +7,16 @@
     <title>Inventur - Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/btn.css') }}">
 </head>
 
-<body
-    class="login-page">
+<body class="login-page">
 
     <div class="login-container">
-        <form
-            class="login-card"
-            method="POST" action="{{ url_for('login') }}">
+        <form class="login-card" method="POST" action="{{ url_for('login') }}">
             <div>
                 <h2 class="login-header">Anmelden</h2>
-                    <p class="login-undertitle">Bitte geben Sie Ihre Zugangsdaten ein.</p>
+                <p class="login-undertitle">Bitte geben Sie Ihre Zugangsdaten ein.</p>
             </div>
 
             {% with messages = get_flashed_messages() %}
@@ -31,33 +29,37 @@
 
             <div class="input-container">
                 <div>
-                    <label class="input-group-label"
-                        for="username">Benutzername</label>
-                    <input
-                        class="input-group-input"
-                        type="text" id="username" name="username" placeholder="Ihr Benutzername" required>
+                    <label class="input-group-label" for="username">Benutzername</label>
+                    <input class="input-group-input" type="text" id="username" name="username"
+                        placeholder="Ihr Benutzername" required>
                 </div>
 
                 <div>
-                    <label class="input-group-label"
-                        for="password">Passwort</label>
-                    <input
-                        class="input-group-input"
-                        type="password" id="password" name="password" placeholder="••••••••" required>
+                    <label class="input-group-label" for="password">Passwort</label>
+                    <input class="input-group-input" type="password" id="password" name="password"
+                        placeholder="••••••••" required>
                 </div>
 
-                <button type="submit"
-                    class="login-btn w-full bg-primary hover:bg-blue-600 text-white font-bold py-3.5 rounded-lg shadow-lg shadow-blue-500/30 transition-all transform active:scale-[0.98]">
+                <button type="submit" class="login-btn">
                     Einloggen</button>
             </div>
-            <div class="mt-8 text-center">
-                <p class="text-sm text-slate-500 dark:text-slate-500">
-                    © 2024 Inventory Management System
-                </p>
+            <div class="footer-container">
+                <div>
+                    <p class="footer-container">
+                        © 2026 Inventory Management System
+                    </p>
+                </div>
+                <div style="width: min-content;">
+                    <a class="footer-container"
+                        href="https://home.graf-rasso-gymnasium.de/home/impressum/">Impressum</a>
+                </div>
             </div>
         </form>
 
     </div>
+    <footer>
+        <a href="https://home.graf-rasso-gymnasium.de/home/impressum/">Impressum</a>
+    </footer>
 
 </body>
 
