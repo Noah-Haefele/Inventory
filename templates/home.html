@@ -107,10 +107,15 @@
     </div>
 </footer>
 
-<script id="session-config" src="{{ url_for('static', filename='js/sessiontimer.js') }}"
-    data-logout-url="{{ url_for('logout') }}">
-        // Jinja2 replaces role with current user
-        const USER_ROLE = "{{ role }}";  
-    </script>
+<script 
+    id="session-config" 
+    src="{{ url_for('static', filename='js/sessiontimer.js') }}"
+    data-logout-url="{{ url_for('logout') }}">  
+</script>
+
+<script>
+    // Jinja2 replaces role with current user
+    const USER_ROLE = "{{ role }}";
+</script>
 
 </html>
