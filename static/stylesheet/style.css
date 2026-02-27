@@ -50,12 +50,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: var(--bg-page);
     color: var(--text-main);
-    
-    /* Diese Zeilen hinzufügen: */
+
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Mindestens so hoch wie der Bildschirm */
+    min-height: 100vh; /* total viewport height */
     margin: 0;
+
+    justify-content: space-between; /* Footer stays down */
 }
 
 .content {
@@ -217,17 +218,16 @@ thead {
 
 .content {
     padding: 20px 30px;
-    flex: 1; /* Das drückt den Footer nach ganz unten */
+    flex: 1; /* pushes the footer all the way down */
 }
 
-/* 3. Footer-Styling beibehalten/leicht anpassen */
 .site-footer {
     padding: 20px 0;
     border-top: 1px solid var(--border-color);
     text-align: center;
     width: 100%;
-    background-color: var(--bg-page); /* Sicherstellen, dass er nicht transparent "schwebt" */
-    flex-shrink: 0; /* Verhindert, dass der Footer zusammengedrückt wird */
+    background-color: var(--bg-page);
+    flex-shrink: 0; /* Prevents the footer from being compressed */
 }
 
 .footer-links {
@@ -238,7 +238,7 @@ thead {
 }
 
 .footer-links a {
-    color: var(--text-main); /* Nutzt deine vorhandene Textfarbe */
+    color: var(--text-main); /* Uses your existing text color */
     text-decoration: none;
     font-size: 0.9rem;
     transition: opacity 0.2s ease;
@@ -253,4 +253,17 @@ thead {
 .footer-divider {
     color: var(--border-color);
     user-select: none;
+}
+
+.login-page {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Takes up the remaining space between header/content and footer */
+}
+
+.login-container {
+    flex: 1; /* Fills the available space */
+    display: flex;
+    justify-content: center; /* centered vertically */
+    align-items: center;     /* centered horizontally */
 }
