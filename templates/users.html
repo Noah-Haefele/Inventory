@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/users.css') }}">
     <script src="{{ url_for('static', filename='js/user_management.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/sessiontimer.js') }}"></script>
 </head>
 
 <body>
@@ -46,7 +47,8 @@
                 {# first admin (top-fixed) #}
                 {% for user in users if user['username'] == 'Admin' %}
                 <tr data-id="{{ user['id'] }}">
-                    <td data-field="username" style="background: var(--input-bg);"><strong>{{ user['username'] }}</strong>
+                    <td data-field="username" style="background: var(--input-bg);"><strong>{{ user['username']
+                            }}</strong>
                     </td>
                     <td contenteditable="true" data-field="password" class="password-cell">••••••••</td>
                     <td><span class="admin-badge">Administrator</span></td>
@@ -68,7 +70,8 @@
                         </select>
                     </td>
                     <td contenteditable="true" data-field="info">{{ user['info'] }}</td>
-                    <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="deleteRow(this)" title="Löschen">🗑</button></td>
+                    <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="deleteRow(this)"
+                            title="Löschen">🗑</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -80,8 +83,13 @@
     <div class="footer-links">
         <a href="https://home.graf-rasso-gymnasium.de/home/impressum/" target="_blank">Impressum</a>
         <span class="footer-divider">|</span>
-        <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/" target="_blank">Datenschutzhinweise</a>
+        <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/"
+            target="_blank">Datenschutzhinweise</a>
     </div>
 </footer>
+
+<script id="session-config" src="{{ url_for('static', filename='js/sessiontimer.js') }}"
+    data-logout-url="{{ url_for('logout') }}">
+    </script>
 
 </html>
