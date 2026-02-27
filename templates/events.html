@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/btn.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/tables.css') }}">  
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/tables.css') }}">
     <script src="{{ url_for('static', filename='js/events.js') }}"></script>
 </head>
 
@@ -30,7 +30,8 @@
                     </div>
                 </nav>
                 <div style="display: flex; align-items: center; margin-left: 24px;">
-                    <div style="display: flex; align-items: center; margin-left: 8px; font-size: 14px; line-height: 20px;">
+                    <div
+                        style="display: flex; align-items: center; margin-left: 8px; font-size: 14px; line-height: 20px;">
                         <span class="header-content-muted" data-i18n="loggedInAs">Angemeldet als:</span>
                         <span class="header-content">{{ username }}</span>
                     </div>
@@ -77,6 +78,9 @@
         </div>
     </main>
     <footer>
+        <p style="font-size: 14px; line-height: 20px;">
+            © 2026 Inventory Management System
+        </p>
         <a href="https://home.graf-rasso-gymnasium.de/home/impressum/">Impressum</a>
     </footer>
 </body>

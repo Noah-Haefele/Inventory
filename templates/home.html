@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/tables.css') }}">
     <script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
-    
+
 </head>
 
 <body>
@@ -93,6 +93,9 @@
     </main>
 
     <footer>
+         <p style="font-size: 14px; line-height: 20px;">
+            © 2026 Inventory Management System
+        </p>
         <a href="https://home.graf-rasso-gymnasium.de/home/impressum/">Impressum</a>
     </footer>
 
@@ -135,8 +138,7 @@
                 <p2 class="pdf-modal-dropzone-content-p2">
                     zum Hochladen
                 </p2>
-                <input type="file" id="pdfInput" accept="application/pdf"
-                    class="uploadfile">
+                <input type="file" id="pdfInput" accept="application/pdf" class="uploadfile">
             </div>
             {% endif %}
             <div id="pdfList" class="pdf-modal-list">

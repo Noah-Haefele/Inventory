@@ -119,3 +119,8 @@
     background-color: var(--text-main);
     transition: width 0.3s ease;
 }
+
+
+.footer-container a:hover {
+    color: var(--text-main);
+}
