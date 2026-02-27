@@ -50,6 +50,12 @@ body {
     font-family: Arial, sans-serif;
     background-color: var(--bg-page);
     color: var(--text-main);
+    
+    /* Diese Zeilen hinzufügen: */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Mindestens so hoch wie der Bildschirm */
+    margin: 0;
 }
 
 .content {
@@ -207,4 +213,44 @@ thead {
     border-radius: 8px;
     width: 350px;
     text-align: center;
+}
+
+.content {
+    padding: 20px 30px;
+    flex: 1; /* Das drückt den Footer nach ganz unten */
+}
+
+/* 3. Footer-Styling beibehalten/leicht anpassen */
+.site-footer {
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    width: 100%;
+    background-color: var(--bg-page); /* Sicherstellen, dass er nicht transparent "schwebt" */
+    flex-shrink: 0; /* Verhindert, dass der Footer zusammengedrückt wird */
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.footer-links a {
+    color: var(--text-main); /* Nutzt deine vorhandene Textfarbe */
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.2s ease;
+    opacity: 0.7;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-divider {
+    color: var(--border-color);
+    user-select: none;
 }

@@ -9,31 +9,40 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
     </head>
 
-    <body class="login-page">
-        <div class="login-container">
-            <form class="login-card" method="POST" action="{{ url_for('login') }}">
-                <h2 style="margin-bottom: 20px;">Anmelden</h2>
+<body class="login-page">
+    <div class="login-container">
+        <form class="login-card" method="POST" action="{{ url_for('login') }}">
+            <h2 style="margin-bottom: 20px;">Anmelden</h2>
 
-                {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <div style="color: red; margin-bottom: 10px; font-size: small;">
-                    {{ messages[0] }}
-                </div>
-                {% endif %}
-                {% endwith %}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div style="color: red; margin-bottom: 10px; font-size: small;">
+                {{ messages[0] }}
+            </div>
+            {% endif %}
+            {% endwith %}
 
-                <div class="input-group">
-                    <label for="username">Benutzername</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
+            <div class="input-group">
+                <label for="username">Benutzername</label>
+                <input type="text" id="username" name="username" required>
+            </div>
 
-                <div class="input-group">
-                    <label for="password">Passwort</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
+            <div class="input-group">
+                <label for="password">Passwort</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-                <button type="submit" class="login-btn">Einloggen</button>
-            </form>
-        </div>
-    </body>
+            <button type="submit" class="login-btn">Einloggen</button>
+        </form>
+    </div>
+</body>
+<!--Can be changed to another url-->
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="https://home.graf-rasso-gymnasium.de/home/impressum/" target="_blank">Impressum</a>
+        <span class="footer-divider">|</span>
+        <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/" target="_blank">Datenschutzhinweise</a>
+    </div>
+</footer>
+
 </html>
