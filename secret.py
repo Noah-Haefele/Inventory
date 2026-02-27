@@ -1,0 +1,2 @@
+# secrets
+SECRET_KEY = "0590d83ddc2569d4b2e748614199765f"

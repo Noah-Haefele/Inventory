@@ -18,7 +18,14 @@ from database import get_db_connection, init_db
 timeM = 11 # serverprotection if timer in sesseiontimer.js fails. note: always +1 minute than timeM in sessiontimer.js!
 
 app = Flask(__name__)
+
+try:
+    from secret import SECRET_KEY
+except ImportError:
+    # if missing key from secret.py (you downloaded me :-)
+    SECRET_KEY = "changeMePLEASE"
 app.secret_key = "pi_inventur_geheim"
+
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=timeM)
 
 init_db()
