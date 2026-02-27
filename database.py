@@ -1,7 +1,9 @@
 import sqlite3
+import os
 from werkzeug.security import generate_password_hash
 
-DATABASE = "users.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "users.db")
 
 
 def get_db_connection():
