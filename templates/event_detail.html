@@ -27,13 +27,17 @@
             padding: 20px;
             border-radius: 8px;
             width: 600px;
-            max-height: 85vh;
+            max-height: 85vh; /* keeps maximum height */
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* prevents hole modal from scroling*/
         }
 
         #inventory-checklist {
             margin: 15px 0;
+            overflow-y: auto; /* activates scrolbar if needed */
+            flex-grow: 1;
+            padding-right: 5px;
         }
 
         .check-item {
