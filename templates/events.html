@@ -3,54 +3,89 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Inventur</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <title>Inventur - Veranstaltungen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/btn.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/tables.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <script src="{{ url_for('static', filename='js/events.js') }}"></script>
 </head>
 
 <body>
 
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
-            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
-            {% if role == 'Administrator' %}
-            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
-            {% endif %}
-        </div>
-        <div class="nav-right">
-            <span class="user-name">Angemeldet als: {{ username }}</span>
-            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
-        </div>
-    </nav>
+    <header>
+        <div class="headercon1">
+            <div class="headercon2">
 
-    <div class="content">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h1>Veranstaltungen</h1>
-            <div class="header-actions">
-                <button class="square-btn btn-green" id="add-event-btn">+</button>
+                <nav class="navbar">
+                    <div class="nav-left">
+                        <a href="{{ url_for('home') }}" class="header-link-muted">Home</a>
+                        <a href="{{ url_for('events') }}" class="header-link">Veranstaltungen</a>
+                        {% if role == 'Administrator' %}
+                        <a href="{{ url_for('users') }}" class="header-link-muted">Benutzerverwaltung</a>
+                        {% endif %}
+                    </div>
+                </nav>
+                <div style="display: flex; align-items: center; margin-left: 24px;">
+                    <div
+                        style="display: flex; align-items: center; margin-left: 8px; font-size: 14px; line-height: 20px;">
+                        <span class="header-content-muted" data-i18n="loggedInAs">Angemeldet als:</span>
+                        <span class="header-content">{{ username }}</span>
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout button">
+                        Logout</a>
+                </div>
             </div>
         </div>
-        <table id="events-table">
-            <thead>
-                <tr>
-                    <th style="width: 150px;">Datum</th>
-                    <th>Event Name</th>
-                    <th>Ort</th>
-                    <th style="width: 280px;">Verantwortlich</th>
-                    <th style="width: 400px;">Info</th>
-                    <th style="width: 150px;">Aktionen</th>
-                </tr>
-            </thead>
-            <tbody id="events-table-body">
-            </tbody>
-        </table>
-    </div>
+    </header>
 
+    <main>
+        <div class="top-bar">
+            <div>
+                <h1 class="h1">Veranstaltungen</h1>
+                <p class="undertitle">Verwalten Sie Ihre bevorstehenden Events und Termine.</p>
+            </div>
+            <button class="btn-add-tr" id="add-event-btn" title="Add Event">
+                +
+            </button>
+        </div>
+        <div class="table-container">
+            <div style="overflow-x: auto;">
+                <table id="events-table">
+                    <thead>
+                        <tr class="tr-header">
+                            <th class="th-header">
+                                Datum</th>
+                            <th class="th-header">
+                                Event Name</th>
+                            <th class="th-header">
+                                Ort</th>
+                            <th class="th-header">
+                                Verantwortlich</th>
+                            <th class="th-header">
+                                Info</th>
+                            <th class="th-header" style="text-align: left;">
+                                Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="events-table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="https://home.graf-rasso-gymnasium.de/home/impressum/" target="_blank">Impressum</a>
+            <span class="footer-divider">|</span>
+            <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/"
+                target="_blank">Datenschutzhinweise</a>
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -1,39 +1,63 @@
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inventur</title>
-        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
-    </head>
 
-    <body class="login-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventur - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/btn.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+</head>
+
+<body class="login-page">
+    <div style="min-height: 90vh; align-items: center; display: flex;">
         <div class="login-container">
             <form class="login-card" method="POST" action="{{ url_for('login') }}">
-                <h2 style="margin-bottom: 20px;">Anmelden</h2>
+                <div>
+                    <h2 class="login-header">Anmelden</h2>
+                    <p class="login-undertitle">Bitte geben Sie Ihre Zugangsdaten ein.</p>
+                </div>
 
                 {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                <div style="color: red; margin-bottom: 10px; font-size: small;">
+                <div style="color: red; margin-bottom: 15px;">
                     {{ messages[0] }}
                 </div>
                 {% endif %}
                 {% endwith %}
 
-                <div class="input-group">
-                    <label for="username">Benutzername</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
+                <div class="input-container">
+                    <div>
+                        <label class="input-group-label" for="username">Benutzername</label>
+                        <input class="input-group-input" type="text" id="username" name="username"
+                            placeholder="Ihr Benutzername" required>
+                    </div>
 
-                <div class="input-group">
-                    <label for="password">Passwort</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
+                    <div>
+                        <label class="input-group-label" for="password">Passwort</label>
+                        <input class="input-group-input" type="password" id="password" name="password"
+                            placeholder="••••••••" required>
+                    </div>
 
-                <button type="submit" class="login-btn">Einloggen</button>
+                    <button type="submit" class="login-btn">
+                        Einloggen</button>
+                </div>
             </form>
+
         </div>
-    </body>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="https://home.graf-rasso-gymnasium.de/home/impressum/" target="_blank">Impressum</a>
+            <span class="footer-divider">|</span>
+            <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/"
+                target="_blank">Datenschutzhinweise</a>
+        </div>
+    </footer>
+
+</body>
+
 </html>

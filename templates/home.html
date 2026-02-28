@@ -3,96 +3,153 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Inventur</title>
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <title>Inventur - Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
-    <script type="module" src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/btn.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/tables.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <script src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
-            <a href="{{ url_for('events') }}" class="nav-item">Veranstaltungen</a>
-            {% if role == 'Administrator' %}
-            <a href="{{ url_for('users') }}" class="nav-item">Benutzerverwaltung</a>
-            {% endif %}
-        </div>
-        <div class="nav-right">
-            <span class="user-name">
-                <span>Angemeldet als</span>: {{ username }}
-            </span>
-            <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
-        </div>
-    </nav>
 
-    <div class="content">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h1>Inventurliste</h1>
-            {% if role == 'Administrator' or role == 'Editor'%}
-            <div class="header-actions">
-                <button class="square-btn btn-blue" onclick="toggleModal('groupModal', true)">G</button>
-                <button class="square-btn btn-green" id="add-home-row">+</button>
+    <header>
+        <div class="headercon1">
+            <div class="headercon2">
+
+                <nav class="navbar">
+                    <div class="nav-left">
+                        <a href="{{ url_for('home') }}" class="header-link">Home</a>
+                        <a href="{{ url_for('events') }}" class="header-link-muted">Veranstaltungen</a>
+                        {% if role == 'Administrator' %}
+                        <a href="{{ url_for('users') }}" class="header-link-muted">Benutzerverwaltung</a>
+                        {% endif %}
+                    </div>
+                </nav>
+                <div style="display: flex; align-items: center; margin-left: 24px;">
+                    <div
+                        style="display: flex; align-items: center; margin-right: 8px; font-size: 14px; line-height: 20px;">
+                        <span class="header-content-muted" style="margin-right: 5px;" data-i18n="loggedInAs">Angemeldet als: </span>
+                        <span class="header-content"> {{ username }}</span>
+                    </div>
+                    <a href="{{ url_for('logout') }}" class="logout button">
+                        Logout</a>
+                </div>
             </div>
-            {% endif %}
         </div>
+    </header>
 
-        <table id="home-table">
-            <thead>
-                <tr>
-                    <th style="width: 150px;">Gruppe</th>
-                    <th>Name</th>
-                    <th style="width: 140px;">Lagerort</th>
-                    <th style="width: 140px;">Anzahl</th>
-                    <th style="width: 140px;">Aktuell </th>
-                    <th style="width: 400px;">Information</th>
-                    {% if role == 'Administrator' or role == 'Editor' %}
-                    <th style="width: 150px; text-align: center;">Aktion</th>
-                    {% else %}
-                    <th style="width: 80px; text-align: center;">Aktion</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody id="home-table-body">
+    <main>
+        <div class="top-bar">
+            <div>
+                <h1 class="h1">Inventurliste</h1>
+                <p class="undertitle">Verwalten Sie Ihre Bestände und Lagerorte effizient.</p>
+            </div>
+            {% if role == 'Administrator' or role == 'Editor'%}
+            <div style="display: flex; gap: 12px;">
+                <button class="btn-add-tr" onclick="toggleModal('groupModal', true)" title="Manage Groups">
+                    G
+                </button>
+                <button class="btn-add-tr" id="add-home-row" title="Add Item">
+                    +
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="table-container">
+            <div style="overflow-x: auto;">
+                <table id="home-table">
+                    <thead>
+                        <tr class="tr-header">
+                            <th class="th-header">
+                                Gruppe</th>
+                            <th class="th-header">
+                                Name</th>
+                            <th class="th-header">
+                                Lagerort</th>
+                            <th class="th-header">
+                                Anzahl</th>
+                            <th class="th-header">
+                                Aktuell </th>
+                            <th class="th-header">
+                                Information</th>
+                            {% if role == 'Administrator' or role == 'Editor' %}
+                            <th class="th-header" style="text-align: left;">
+                                Aktion</th>
+                            {% else %}
+                            <th class="th-header" style="text-align: left;">Aktion</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody id="home-table-body">
 
-            </tbody>
-        </table>
-    </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="https://home.graf-rasso-gymnasium.de/home/impressum/" target="_blank">Impressum</a>
+            <span class="footer-divider">|</span>
+            <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/"
+                target="_blank">Datenschutzhinweise</a>
+        </div>
+    </footer>
 
     <div id="groupModal" class="modal">
-        <div class="modal-content">
-            <h3>Gruppen verwalten</h3>
-            <div id="groupList" style="margin-top: 20px; max-height: 200px; overflow-y: auto;">
+        <div class="modal-main">
+            <div class="modal-header-con">
+                <h2 class="modal-header">Gruppen verwalten</h2>
             </div>
-            <div style="margin-top: 20px; display: flex; gap: 5px; justify-content: center;">
-                <input type="text" id="newGroupName" placeholder="Neue Gruppe...">
-                <button class="square-btn btn-green" onclick="addGroup()">+</button>
-            </div>
-            <div style="margin-top: 20px;">
-                <button class="normal-btn btn-green" onclick="toggleModal('groupModal', false)">Ok</button>
+            <div>
+                <div id="groupList" class="group-modal-group-list">
+                    <!-- Dynamisch gefüllte Liste der Gruppen -->
+                </div>
+                <div class="group-modal-new-group">
+                    <input type="text" id="newGroupName" placeholder="Neue Gruppe..." class="group-modal-new-group">
+                    <button class="btn-add-tr" onclick="addGroup()"> +
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button class="assign-item-save-btn" onclick="toggleModal('groupModal', false)">
+                        Ok
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
     <div id="pdfModal" class="modal">
-        <div class="modal-content" style="max-width: 600px;">
-            <h3 id="pdfModalTitle">Anleitungen</h3>
-            <br>
+        <div class="modal-main">
+            <div class="modal-header-con">
+                <h2 id="pdfModalTitle" class="modal-header">Anleitungen</h2>
+            </div>
             {% if role == 'Administrator' or role == 'Editor' %}
-            <div id="dropZone" class="drop-zone">
-                <p>PDF hierher ziehen oder klicken zum Hochladen</p>
-                <input type="file" id="pdfInput" accept="application/pdf" style="display: none;">
+            <div id="dropZone" class="pdf-modal-dropzone">
+                <div class="pdf-modal-dropzone-content">
+                    <span class="material-symbols-outlined text-4xl">upload_file</span>
+                </div>
+                <p1 class="pdf-modal-dropzone-content-p1">
+                    PDF hierher ziehen oder klicken
+                </p1>
+                <p2 class="pdf-modal-dropzone-content-p2">
+                    zum Hochladen
+                </p2>
+                <input type="file" id="pdfInput" accept="application/pdf" class="uploadfile">
             </div>
             {% endif %}
-            <div id="pdfList" style="margin-top: 15px; max-height: 300px; overflow-y: auto;">
+            <div id="pdfList" class="pdf-modal-list">
             </div>
 
-            <div style="margin-top: 20px;">
-                <button class="normal-btn btn-green" onclick="toggleModal('pdfModal', false)">Ok</button>
-            </div>
+            <footer class="modal-footer">
+                <button class="assign-item-save-btn" onclick="toggleModal('pdfModal', false)">Ok</button>
+            </footer>
         </div>
     </div>
 </body>

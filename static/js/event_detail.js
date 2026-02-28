@@ -19,14 +19,28 @@ async function loadInventoryChecklist() {
     const listDiv = document.getElementById("inventory-checklist");
 
     listDiv.innerHTML = items.map(i => `
-        <div class="check-item">
-            <input type="checkbox" id="item-${i.id}" value="${i.id}" class="inv-checkbox">
-            <label for="item-${i.id}" style="flex-grow:1;"><strong>${i.name_id}</strong> (${i.gruppe})</label>
-            <div style="font-size: 0.8em; color: #666;">Verfügbar: ${i.anzahl}</div>
-            <input type="number" id="qty-${i.id}" value="1" min="1" max="${i.anzahl}" 
-                class="qty-input" 
-                onblur="validateInput(this, 1, ${i.anzahl})">
-        </div>
+        <label class="assign-item-row-label">
+            <div class="assign-item-row-checkbox-container">
+                <input type="checkbox" id="item-${i.id}" value="${i.id}" class="inv-checkbox">
+            </div>
+            <div for="item-${i.id}" class="assign-item-row-name">
+                <strong >${i.name_id}</strong> (${i.gruppe})
+            </div>
+            <div class="assign-item-row-qty">Verfügbar: ${i.anzahl}</div>
+            <div class="count-div">
+                <button class="count-minus"
+                    onclick="this.nextElementSibling.stepDown();
+                    this.nextElementSibling.dispatchEvent(new Event('change'))">
+                -</button>
+                <input type="number" id="qty-${i.id}" value="1" min="1" max="${i.anzahl}" 
+                    class="count-input" 
+                    onblur="validateInput(this, 1, ${i.anzahl})">
+                <button class="count-plus"
+                    onclick="this.previousElementSibling.stepUp();
+                    this.previousElementSibling.dispatchEvent(new Event('change'))">
+                +</button>
+            </div
+        </label>
     `).join('');
 }
 
@@ -86,25 +100,29 @@ async function loadAssignedItems(eventId) {
     items.forEach(item => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td>${item.gruppe}</td>
-            <td>${item.name_id}</td>
-            <td>${item.lagerort}</td>
+            <td class="content">${item.gruppe}</td>
+            <td class="content" style="color: var(--text-muted);">${item.name_id}</td>
+            <td class="content">${item.lagerort}</td>
             <td class="qty-column">
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div class="number-wrapper" style="width: 80%;">
-                        <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
-                            <input type="number" 
-                                value="${item.assigned_qty || 0}" 
-                                min="1" 
-                                max="${item.anzahl}"
-                                class="custom-number-input"
-                                onchange="UpdateQty(${item.assignment_id},${item.anzahl}, this)">
-                        <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
-                    </div>
+                <div class="count-div">
+                    <button class="count-minus"
+                        onclick="this.nextElementSibling.stepDown();
+                        this.nextElementSibling.dispatchEvent(new Event('change'))">
+                    -</button>
+                    <input type="number" value="${item.assigned_qty}" min="1" max="${item.anzahl}" 
+                        onchange="validateAndSaveQty(${item.assignment_id}, this, ${item.anzahl})" 
+                        class="count-input">
+                    <button class="count-plus"
+                        onclick="this.previousElementSibling.stepUp();
+                        this.previousElementSibling.dispatchEvent(new Event('change'))">
+                    +</button>
                     <small>/ ${item.anzahl}</small>
-                </div>
+                </div>               
             </td>
-            <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="removeAssignment(${item.assignment_id})" title="Löschen">🗑</button></td>
+            <td class="content">
+                <button class="delete-btn" onclick="removeAssignment(${item.assignment_id})">
+                🗑</button>
+            </td>
         `;
         tbody.appendChild(tr);
     });
