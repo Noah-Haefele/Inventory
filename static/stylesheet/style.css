@@ -230,7 +230,7 @@ thead {
 
 .site-footer {
     padding: 20px 0;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--devider);
     text-align: center;
     width: 100%;
     background-color: var(--bg-page);
@@ -258,7 +258,7 @@ thead {
 }
 
 .footer-divider {
-    color: var(--border-color);
+    color: var(--devider);
     user-select: none;
 }
 
