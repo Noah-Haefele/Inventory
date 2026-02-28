@@ -1,9 +1,10 @@
 .header {
     background-color: var(--bg-page);
-    border-bottom: var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0px;
     z-index: 50;
+    height: 64px;
 }
 
 .headercon1 {
@@ -22,7 +23,6 @@
 .navbar {
     display: flex;
     margin-left: 32px;
-    height: 10vh;
     align-items: center;
 }
 

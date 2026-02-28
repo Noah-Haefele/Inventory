@@ -27,17 +27,19 @@ async function loadInventoryChecklist() {
                 <strong >${i.name_id}</strong> (${i.gruppe})
             </div>
             <div class="assign-item-row-qty">Verfügbar: ${i.anzahl}</div>
-            <button class="count-minus"
-                onclick="this.nextElementSibling.stepDown();
-                this.nextElementSibling.dispatchEvent(new Event('change'))">
-            -</button>
-            <input type="number" id="qty-${i.id}" value="1" min="1" max="${i.anzahl}" 
-                class="count-input" 
-                onblur="validateInput(this, 1, ${i.anzahl})">
-            <button class="count-plus"
-                onclick="this.previousElementSibling.stepUp();
-                this.previousElementSibling.dispatchEvent(new Event('change'))">
-            +</button>
+            <div class="count-div">
+                <button class="count-minus"
+                    onclick="this.nextElementSibling.stepDown();
+                    this.nextElementSibling.dispatchEvent(new Event('change'))">
+                -</button>
+                <input type="number" id="qty-${i.id}" value="1" min="1" max="${i.anzahl}" 
+                    class="count-input" 
+                    onblur="validateInput(this, 1, ${i.anzahl})">
+                <button class="count-plus"
+                    onclick="this.previousElementSibling.stepUp();
+                    this.previousElementSibling.dispatchEvent(new Event('change'))">
+                +</button>
+            </div
         </label>
     `).join('');
 }
@@ -102,18 +104,20 @@ async function loadAssignedItems(eventId) {
             <td class="content" style="color: var(--text-muted);">${item.name_id}</td>
             <td class="content">${item.lagerort}</td>
             <td class="qty-column">
-                <button class="count-minus"
-                    onclick="this.nextElementSibling.stepDown();
-                    this.nextElementSibling.dispatchEvent(new Event('change'))">
-                -</button>
-                <input type="number" value="${item.assigned_qty}" min="1" max="${item.anzahl}" 
-                    onchange="validateAndSaveQty(${item.assignment_id}, this, ${item.anzahl})" 
-                    class="count-input">
-                <button class="count-plus"
-                    onclick="this.previousElementSibling.stepUp();
-                    this.previousElementSibling.dispatchEvent(new Event('change'))">
-                +</button>
-                <small>/ ${item.anzahl}</small>               
+                <div class="count-div">
+                    <button class="count-minus"
+                        onclick="this.nextElementSibling.stepDown();
+                        this.nextElementSibling.dispatchEvent(new Event('change'))">
+                    -</button>
+                    <input type="number" value="${item.assigned_qty}" min="1" max="${item.anzahl}" 
+                        onchange="validateAndSaveQty(${item.assignment_id}, this, ${item.anzahl})" 
+                        class="count-input">
+                    <button class="count-plus"
+                        onclick="this.previousElementSibling.stepUp();
+                        this.previousElementSibling.dispatchEvent(new Event('change'))">
+                    +</button>
+                    <small>/ ${item.anzahl}</small>
+                </div>               
             </td>
             <td class="content">
                 <button class="delete-btn" onclick="removeAssignment(${item.assignment_id})">

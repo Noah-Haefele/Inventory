@@ -20,6 +20,10 @@ table {
     border-color: var(--border-color);
 }
 
+.tr-header:hover {
+    background-color: var(--bg-table-header) !important;
+}
+
 .th-header {
     padding-left: 24px;
     padding-right: 24px;
@@ -33,6 +37,10 @@ table {
     color: var(--text-muted);
 }
 
+tr {
+    transition-timing-function: 300ms;
+}
+
 tr:hover {
     background-color: var(--bg-tcontent-hover);
 }
@@ -44,9 +52,11 @@ td.content {
     padding-bottom: 16px;
 }
 
-td.actions {
+.actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     gap: 8px;
 }
 

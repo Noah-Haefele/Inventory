@@ -148,6 +148,7 @@ main {
     padding-bottom: 40px;
     margin-left: auto;
     margin-right: auto;
+    min-height: calc(100vh - 128px);
 }
 
 .top-bar {
@@ -172,7 +173,7 @@ input[type="file"]::file-selector-button {
     align-items: center;
     border-width: 1px !important;
     border-style: solid !important;
-    border-color: #000;
+    border-color: var(--border-color);
     border-radius: 6px;
     font-size: 14px;
     line-height: 20px;
@@ -194,8 +195,9 @@ input[type="file"]::file-selector-button {
 }
 
 .site-footer {
+    position: sticky;
     display: flex;
-    height: 10vh !important;
+    height: 64px;
     padding: 20px 0;
     border-top: 1px solid var(--border-color);
     align-items: center;

@@ -35,23 +35,23 @@ async function loadEvents() {
 
 
         tr.innerHTML = `
-            <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-size: 14px; line-height: 20px; white-space: nowrap;">
+            <td class="content" style="font-size: 14px; line-height: 20px; white-space: nowrap;">
                 <input type="date" 
                     style="color: #36454F; border-width: 1px; border-color: var(--border-color); background-color: var(--bg-card); color: var(--text-main); font-size: 12px; line-height: 16px; padding-left: 8px; padding-right: 8px; padding-top: 4px; padding-bottom: 4px; border-radius: 6px; outline: none; transition: all 0.2s ease-in-out; width: 128px;"
                     value="${evt.datum}"
                     onchange="updateEvent(${evt.id}, 'datum', this.value)">
             </td>
-            <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-size: 14px; line-height: 20px; color: var(--text-main); font-weight: 600;" contenteditable="true" onblur="updateEvent(${evt.id}, 'name', this.innerText)">${evt.name}</td>
-            <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-size: 14px; line-height: 20px; color: var(--text-muted);" contenteditable="true" onblur="updateEvent(${evt.id}, 'ort', this.innerText)">${evt.ort}</td>
-            <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-size: 14px; line-height: 20px;">
+            <td class="content" style="font-size: 14px; line-height: 20px; color: var(--text-main); font-weight: 600;" contenteditable="true" onblur="updateEvent(${evt.id}, 'name', this.innerText)">${evt.name}</td>
+            <td class="content" style="font-size: 14px; line-height: 20px; color: var(--text-muted);" contenteditable="true" onblur="updateEvent(${evt.id}, 'ort', this.innerText)">${evt.ort}</td>
+            <td class="content" style="font-size: 14px; line-height: 20px;">
                 <select style="color: #36454F; border-width: 1px; border-color: var(--border-color); background-color: var(--bg-card); color: var(--text-main); font-size: 12px; line-height: 16px; padding-left: 8px; padding-right: 8px; padding-top: 4px; padding-bottom: 4px; border-radius: 6px; outline: none; transition: all 0.2s ease-in-out; width: 128px;" onchange="updateEvent(${evt.id}, 'verantwortlich', this.value)">
                     <option value="-" ${evt.verantwortlich === '-' ? 'selected' : ''}>- kein -</option>
                     ${userOptions}
                 </select>
             </td>
-            <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-size: 14px; line-height: 20px; color: var(--text-muted);" contenteditable="true" onblur="updateEvent(${evt.id}, 'info', this.innerText)">${evt.info}</td>
-            <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; text-align: right;" white-space: nowrap;">
-                <div style="display: flex; align-items: center; justify-content: flex-end; margin-left: 20px;">
+            <td style="font-size: 14px; line-height: 20px; color: var(--text-muted);" class="content" contenteditable="true" onblur="updateEvent(${evt.id}, 'info', this.innerText)">${evt.info}</td>
+            <td style="text-align: right;" white-space: nowrap;" class="content actions">
+                <div style="display: flex; align-items: center; justify-content: center; margin-left: 20px;">
                     <label style="display: flex; position: relative; align-items: center; cursor: pointer;">
                         <input type="checkbox" name="activeEvent"
                             class="radio-input" 
@@ -63,7 +63,7 @@ async function loadEvents() {
                     </label>
                     <div style="display: flex; align-items: center; margin-left: 12px;" >
                         <button class="action-icon" onclick="window.location.href='/event_detail/${evt.id}'">👁</button>
-                        <button class="delete-btn" onclick="deleteEvent(${evt.id})">🗑</button>
+                        <button class="delete-btn" style="margin-left: 12px;" onclick="deleteEvent(${evt.id})">🗑</button>
                     </div>
                 </div>
             </td>

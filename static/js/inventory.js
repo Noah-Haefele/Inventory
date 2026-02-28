@@ -124,10 +124,10 @@ function addRowToUI(item) {
 
 
     tr.innerHTML = `
-        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px;">${window.canEdit ? renderGroupSelect(item.id, item.gruppe) : item.gruppe}</td>
-        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-weight: 500;" ${editAttr} onblur="updateItem(${item.id}, 'name_id', this.innerText)">${item.name_id}</td>
-        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; color: var(--text-muted);" ${editAttr} onblur="updateItem(${item.id}, 'lagerort', this.innerText)">${item.lagerort}</td>
-        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px;>
+        <td class="content">${window.canEdit ? renderGroupSelect(item.id, item.gruppe) : item.gruppe}</td>
+        <td class="content" style="font-weight: 500;" ${editAttr} onblur="updateItem(${item.id}, 'name_id', this.innerText)">${item.name_id}</td>
+        <td class="content" style="color: var(--text-muted);" ${editAttr} onblur="updateItem(${item.id}, 'lagerort', this.innerText)">${item.lagerort}</td>
+        <td class="content">
             ${window.canEdit ? `
                 <div class="count-div">
                     <button class="count-minus" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
@@ -142,9 +142,9 @@ function addRowToUI(item) {
             `<span>${item.anzahl}</span>`
         }
         </td>
-        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-weight: 600;">${item.aktuell}</td>
-        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; font-weight: 500; color: var(--text-muted);" ${editAttr} onblur="updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
-        <td style="padding-left: 24px; padding-right: 24px; padding-top: 16px; padding-bottom: 16px; text-align: right;">
+        <td class="content" style=font-weight: 600;">${item.aktuell}</td>
+        <td class="content" style="font-weight: 500; color: var(--text-muted);" ${editAttr} onblur="updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
+        <td class="content" style="text-align: right;">
             <div class="actions">
                 <button class="edit-btn"
                     onclick="openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">

@@ -33,8 +33,8 @@
                 <div style="display: flex; align-items: center; margin-left: 24px;">
                     <div
                         style="display: flex; align-items: center; margin-right: 8px; font-size: 14px; line-height: 20px;">
-                        <span class="header-content-muted" data-i18n="loggedInAs">Angemeldet als:</span>
-                        <span class="header-content">{{ username }}</span>
+                        <span class="header-content-muted" style="margin-right: 5px;" data-i18n="loggedInAs">Angemeldet als: </span>
+                        <span class="header-content"> {{ username }}</span>
                     </div>
                     <a href="{{ url_for('logout') }}" class="logout button">
                         Logout</a>
