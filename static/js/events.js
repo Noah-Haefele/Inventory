@@ -60,22 +60,22 @@ class EventManagement {
 
         // Populate row with event details
         tr.innerHTML = `
-            <td>
+            <td data-label="Datum">
                 <input type="date" 
                     value="${evt.datum}" 
                     class="date-picker-input" 
                     onchange="window.updateEvent(${evt.id}, 'datum', this.value)">
             </td>
-            <td contenteditable="true" data-field="name" onblur="window.updateEvent(${evt.id}, 'name', this.innerText)">${evt.name}</td>
-            <td contenteditable="true" data-field="ort" onblur="window.updateEvent(${evt.id}, 'ort', this.innerText)">${evt.ort}</td>
-            <td>
+            <td data-label="Name" contenteditable="true" data-field="name" onblur="window.updateEvent(${evt.id}, 'name', this.innerText)">${evt.name}</td>
+            <td data-label="Ort" contenteditable="true" data-field="ort" onblur="window.updateEvent(${evt.id}, 'ort', this.innerText)">${evt.ort}</td>
+            <td data-label="Verantwortlicher">
                 <select class="role-select" onchange="window.updateEvent(${evt.id}, 'verantwortlich', this.value)">
                     <option value="-" ${evt.verantwortlich === '-' ? 'selected' : ''}>- kein -</option>
                     ${userOptions}
                 </select>
             </td>
-            <td contenteditable="true" data-field="info" onblur="window.updateEvent(${evt.id}, 'info', this.innerText)">${evt.info}</td>
-            <td class="action-cell">
+            <td data-label="Info" contenteditable="true" data-field="info" onblur="window.updateEvent(${evt.id}, 'info', this.innerText)">${evt.info}</td>
+            <td data-label="Aktion" class="action-cell">
                 <input type="radio" name="activeEvent" 
                        ${evt.is_active ? 'checked data-waschecked="true"' : 'data-waschecked="false"'} 
                        onclick="window.toggleActiveEvent(this, ${evt.id})" title="Aktivieren">
