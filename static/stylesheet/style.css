@@ -2,6 +2,7 @@
     /* LIGHT MODE */
     --bg-page: #ffffff;
     --bg-content: #ffffff;
+    --bg-content-children: #ffffff
     --bg-navbar: rgb(193, 244, 255);
     --bg-table-header: #f0f0f0;
     --bg-card: #ffffff;
@@ -23,16 +24,17 @@
 @media (prefers-color-scheme: dark) {
     :root {
         /* DARK MODE */
-        --bg-page: #121212;
-        --bg-content: #1e1e1e;
+        --bg-page: #090a27;
+        --bg-content: #434d56;
+        --bg-content-children: #001a33;
         --bg-navbar: #001a33;
         --bg-table-header: #2d2d2d;
-        --bg-card: #252525;
+        --bg-card: #001a33;
         --text-main: #e0e0e0;
         --text-muted: #bbbbbb;
-        --border-color: #444444;
-        --input-bg: #2d2d2d;
-        --modal-overlay: rgba(0, 0, 0, 0.8);
+        --border-color: #00000085;
+        --input-bg: #434d56;
+        --modal-overlay: rgba(9, 10, 39, 0.8);
         --accent-blue: #4d66ff;
         --accent-blue-hover: #4d66ffbc;
         --dragdrop-background: #6c9fff;
@@ -101,6 +103,7 @@ body {
 
 .btn-blue {
     background: var(--accent-blue);
+    box-shadow: 0 0 10px var(--border-color);
 }
 
 .btn-blue:hover {
@@ -110,6 +113,7 @@ body {
 
 .btn-green {
     background: var(--accent-green);
+    box-shadow: 0 0 10px var(--border-color);
 }
 
 .btn-green:hover {
@@ -132,8 +136,9 @@ table {
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    border: 0px;
+    box-shadow: 0 0 10px var(--border-color);
     overflow: hidden;
 }
 
@@ -214,6 +219,8 @@ thead {
     border-radius: 8px;
     width: 350px;
     text-align: center;
+    border: 0px;
+    box-shadow: 0 0 10px var(--border-color);
 }
 
 .content {
