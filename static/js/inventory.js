@@ -165,15 +165,15 @@ class InventoryManager {
         }
 
         tr.innerHTML = `
-            <td>${this.canEdit ? this.renderGroupSelect(item.id, item.gruppe) : item.gruppe}</td>
-            <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'name_id', this.innerText)">${item.name_id}</td>
-            <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'lagerort', this.innerText)">${item.lagerort}</td>
-            <td>
+            <td data-label="Gruppe">${this.canEdit ? this.renderGroupSelect(item.id, item.gruppe) : item.gruppe}</td>
+            <td data-label="Name" ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'name_id', this.innerText)">${item.name_id}</td>
+            <td data-label="Lagerort" ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'lagerort', this.innerText)">${item.lagerort}</td>
+            <td data-label="Anzahl">
                 ${this.renderQuantityControl(item)}
             </td>
-            <td>${item.aktuell}</td>
-            <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
-            <td class="action-cell">
+            <td data-label="Aktuell">${item.aktuell}</td>
+            <td data-label="Information" ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
+            <td data-label="Aktion" class="action-cell">
                 <button class="action-icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">📋</button>
                 ${this.canEdit ? `<button class="del-icon" onclick="inventoryManager.deleteItem(${item.id})" title="Löschen">🗑</button>` : ''}
             </td>

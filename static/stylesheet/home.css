@@ -144,3 +144,55 @@
         )
     bottom / 100% 1px no-repeat;
 }
+
+@media (max-width: 80rem) {
+    /* 1. Obere Spalte (Tabellenkopf) komplett entfernen */
+    #home-table thead {
+        display: none !important;
+    }
+
+    /* 2. Gruppen-Auswahl schmaler machen */
+    .group-select {
+        width: auto !important;
+        max-width: 150px !important;
+        margin-left: auto; /* Schiebt es nach rechts, da Zelleninhalte rechtsbündig sind */
+    }
+
+    /* 3. Anzahl-Buttons näher zusammenbringen */
+    .number-wrapper {
+        width: 100px !important; /* Feste Breite verhindert das Auseinanderdriften */
+        min-width: 100px !important;
+        margin-left: auto; /* Hält die Steuerung auf der rechten Seite der Karte */
+    }
+
+    /* 4. Karten-Layout optimieren */
+    #home-table tr {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 15px !important;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    }
+
+    #home-table td {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 10px 15px !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--devider) !important;
+        text-align: right !important;
+        height: auto !important;
+    }
+
+    /* Label-Konfiguration */
+    #home-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--text-muted);
+        text-align: left;
+        flex: 1;
+    }
+}
