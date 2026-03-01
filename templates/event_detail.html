@@ -79,7 +79,9 @@
             {% endif %}
         </div>
         <div class="nav-right">
-            <span class="user-name">Angemeldet als: {{ username }}</span>
+            <span class="user-name">
+                <span style="color: var(--text-muted);">Angemeldet als</span>: {{ username }}
+            </span>
             <a href="{{ url_for('logout') }}" class="logout-btn" style="text-decoration: none;">Logout</a>
         </div>
     </nav>

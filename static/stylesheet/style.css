@@ -62,10 +62,6 @@ body {
     justify-content: space-between; /* Footer stays down */
 }
 
-.content {
-    padding: 20px 30px;
-}
-
 .std-input {
     width: 100%;
     padding: 5px;
@@ -234,7 +230,7 @@ thead {
 
 .content {
     padding: 20px 30px;
-    width: 55%;
+    width: 100rem;
     margin: 0 auto;
     flex: 1; /* pushes the footer all the way down */
 }
@@ -273,15 +269,19 @@ thead {
     user-select: none;
 }
 
-.login-page {
-    display: flex;
-    flex-direction: column;
-    flex: 1; /* Takes up the remaining space between header/content and footer */
+@media (max-width: 100rem) {
+    .content {
+        width: auto;
+    }
 }
 
-.login-container {
-    flex: 1; /* Fills the available space */
-    display: flex;
-    justify-content: center; /* centered vertically */
-    align-items: center;     /* centered horizontally */
+@media (max-width: 70rem) {
+    .content {
+        width: auto;
+    }
+
+    #home-table th:nth-child(6),
+    #home-table td:nth-child(6) {
+        display: none;
+    }
 }

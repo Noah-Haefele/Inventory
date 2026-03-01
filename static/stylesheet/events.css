@@ -3,6 +3,11 @@ input[type="radio"] {
     height: 18px;
     cursor: pointer;
     accent-color: var(--accent-blue);
+    transition: box-shadow 0.3s ease;
+}
+
+input[type="radio"]:checked {
+    box-shadow: 0 0 7px var(--accent-blue);
 }
 
 .date-picker-input {

@@ -62,7 +62,7 @@
     opacity: 0.9;
 }
 
-@media (max-width: 80rem) {
+@media (max-width: 70rem) {
     .navbar {
         flex-direction: column;
         height: auto;
@@ -71,15 +71,20 @@
     }
 
     .nav-left {
-        gap: 20px;
+        order: 2;
         flex-wrap: wrap;
         justify-content: center;
+        padding-top: 15px;
+        border-top: 1px solid var(--devider);
+        width: 100%;
     }
 
     .nav-right {
+        order: 1;
+        gap: 20px;
         width: 100%;
         justify-content: space-between;
-        border-top: 1px solid var(--devider);
-        padding-top: 10px;
+        
+        
     }
 }

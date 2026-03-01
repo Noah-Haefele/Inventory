@@ -186,7 +186,7 @@ class InventoryManager {
             return `<span>${item.anzahl}</span>`;
         }
         return `
-            <div class="number-wrapper" style="width: 100%;">
+            <div class="number-wrapper">
                 <button style="color: red;" class="qty-btn" onclick="inventoryManager.adjustQuantity(${item.id}, -1)">-</button>
                 <input type="number" 
                     value="${item.anzahl || 0}" 

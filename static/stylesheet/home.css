@@ -77,7 +77,6 @@
     border: 0px;
     overflow: hidden;
     background: var(--input-bg);
-    min-width: 100px;
     transition: box-shadow 0.3s ease;
 }
 
@@ -143,7 +142,7 @@
 }
 
 
-@media (max-width: 80rem) {
+@media (max-width: 55rem) {
     #home-table thead {
         display: none !important;
     }

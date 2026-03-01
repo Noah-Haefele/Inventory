@@ -2,19 +2,20 @@
     background: var(--bg-page);
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: center;  
 }
 
 .login-card {
     background: var(--bg-card);
     color: var(--text-main);
-    padding: 40px;
+    width: 40vw;
+    max-width: 370px;
+    min-width: 350px;
+    min-height: 400px;
+    padding: 60px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     text-align: center;
-    width: 100%;
-    max-width: 400px;
 }
 
 .input-group {
@@ -45,6 +46,7 @@
 }
 
 .login-btn {
+    margin-top: 8%;
     width: 100%;
     padding: 12px;
     background: var(--accent-blue);
@@ -61,4 +63,11 @@
 .login-btn:hover {
     background: var(--accent-blue-hover);
     transform: scale(101%);
+}
+
+.login-container {
+    flex: 1; /* Fills the available space */
+    display: flex;
+    justify-content: center; /* centered vertically */
+    align-items: center;     /* centered horizontally */
 }

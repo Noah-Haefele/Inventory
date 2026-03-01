@@ -12,7 +12,8 @@
 <body class="login-page">
     <div class="login-container">
         <form class="login-card" method="POST" action="{{ url_for('login') }}">
-            <h2 style="margin-bottom: 20px;">Anmelden</h2>
+            <h1>Anmelden</h1>
+            <h4 style="margin-bottom: 40px; margin-top: 5px;">Technik-Ag Inventur</h4>
 
             {% with messages = get_flashed_messages() %}
             {% if messages %}
