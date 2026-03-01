@@ -31,8 +31,9 @@
     </nav>
 
     <div class="content">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h1>Inventurliste</h1>
+        <h1 style="margin-top: 50px; color: var(text-main);">Inventurliste</h1>
+        <div style="margin-top: 8px; margin-bottom: 35px; display: flex; justify-content: space-between; align-items: center;">
+            <h3 color: var(--text-muted)>Verwalten Sie Ihre Inventur</h3>
             {% if role == 'Administrator' or role == 'Editor'%}
             <div class="header-actions">
                 <button class="square-btn btn-blue" onclick="toggleModal('groupModal', true)">G</button>

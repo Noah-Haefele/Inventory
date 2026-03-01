@@ -25,7 +25,8 @@
     :root {
         /* DARK MODE */
         --bg-page: #090a27;
-        --bg-content: #434d56;
+        --bg-content: #1C2A3A;
+        --th: #434d56;
         --bg-content-children: #001f3d;
         --bg-navbar: #001f3d;
         --bg-table-header: #2d2d2d;
@@ -33,7 +34,7 @@
         --text-main: #e0e0e0;
         --text-muted: #bbbbbb;
         --border-color: #00000085;
-        --input-bg: #434d56;
+        --input-bg: #1C2A3A;
         --modal-overlay: rgba(9, 10, 39, 0.8);
         --accent-blue: #4d66ff;
         --accent-blue-hover: #4d66ffbc;
@@ -147,10 +148,18 @@ td {
     padding: 8px 12px;
     border-right: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
-    height: 45px;
     vertical-align: middle;
-    background-color: var(--bg-content);
     color: var(--text-main);
+}
+
+th{
+    background-color: var(--th);
+    height: 45px;
+}
+
+td{
+    background-color: var(--bg-content);
+    height: 60px;
 }
 
 th:last-child,
@@ -225,6 +234,8 @@ thead {
 
 .content {
     padding: 20px 30px;
+    width: 55%;
+    margin: 0 auto;
     flex: 1; /* pushes the footer all the way down */
 }
 
