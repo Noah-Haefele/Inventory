@@ -1,5 +1,6 @@
 import sqlite3
 import os
+from datetime import timedelta
 from flask import (
     Flask,
     render_template,
@@ -14,8 +15,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from database import get_db_connection, init_db
 
+timeM = 11 # serverprotection if timer in sesseiontimer.js fails. note: always +1 minute than timeM in sessiontimer.js!
+
 app = Flask(__name__)
+
+try:
+    from secret import SECRET_KEY
+except ImportError:
+    # if missing key from secret.py (you downloaded me :-)
+    SECRET_KEY = "changeMePLEASE"
 app.secret_key = "pi_inventur_geheim"
+
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=timeM)
 
 init_db()
 
@@ -34,17 +45,20 @@ def index():
 def login():
     if request.method == "POST":
         u, p = request.form["username"], request.form["password"]
-        conn = get_db_connection() # connects to db with function from database.py
+        conn = get_db_connection()
         user = conn.execute("SELECT * FROM users WHERE username = ?", (u,)).fetchone()
-        conn.close() # closes connection
-        if user and check_password_hash(user["password"], p): # checks if the users password matches the entered password
-            session.update(
-                {
-                    "user_id": user["id"],
-                    "username": user["username"],
-                    "role": user["role"],
-                }
-            )
+        conn.close()
+        
+        if user and check_password_hash(user["password"], p):
+            # --- DIESE ZEILE HINZUFÜGEN ---
+            session.permanent = True 
+            # ------------------------------
+            
+            session.update({
+                "user_id": user["id"],
+                "username": user["username"],
+                "role": user["role"],
+            })
             return redirect(url_for("home"))
         flash("Login fehlgeschlagen!")
     return render_template("login.html")
@@ -404,10 +418,12 @@ def remove_assignment():
     return jsonify({"success": True})
 
 
-
-UPLOAD_FOLDER = "static/manuals"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "static", "manuals")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 @app.route("/api/get_pdfs/<int:item_id>")

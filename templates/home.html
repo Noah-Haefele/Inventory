@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/home.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/events.css') }}">
     <script type="module" src="{{ url_for('static', filename='js/inventory.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/sessiontimer.js') }}"></script>
 </head>
 
 <body>
@@ -96,9 +97,25 @@
         </div>
     </div>
 </body>
+<!--Can be changed to another url-->
+<footer class="site-footer">
+    <div class="footer-links">
+        <a href="https://home.graf-rasso-gymnasium.de/home/impressum/" target="_blank">Impressum</a>
+        <span class="footer-divider">|</span>
+        <a href="https://home.graf-rasso-gymnasium.de/home/datenschutzerklaerung/"
+            target="_blank">Datenschutzhinweise</a>
+    </div>
+</footer>
+
+<script 
+    id="session-config" 
+    src="{{ url_for('static', filename='js/sessiontimer.js') }}"
+    data-logout-url="{{ url_for('logout') }}">  
+</script>
+
 <script>
     // Jinja2 replaces role with current user
-    const USER_ROLE = "{{ role }}"; 
+    const USER_ROLE = "{{ role }}";
 </script>
 
 </html>
