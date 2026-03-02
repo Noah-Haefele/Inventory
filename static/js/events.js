@@ -115,6 +115,7 @@ class EventManagement {
         
         if (!trimmedValue) {
             alert("FEHLER: Der Name darf nicht leer sein");
+            location.reload();
             return;
         }
 
