@@ -445,13 +445,14 @@ def upload_pdf():
 
     if file and file.filename.endswith(".pdf"):
         filename = secure_filename(file.filename)
+        rel_path = f"static/manuals/{item_id}_{filename}"
         path = os.path.join(app.config["UPLOAD_FOLDER"], f"{item_id}_{filename}")
         file.save(path)
 
         conn = get_db_connection()
         conn.execute(
             "INSERT INTO inventory_pdfs (inventory_id, filename, filepath) VALUES (?, ?, ?)",
-            (item_id, filename, path),
+            (item_id, filename, rel_path),  # only relative path
         )
         conn.commit()
         conn.close()
