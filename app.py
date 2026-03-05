@@ -24,7 +24,7 @@ try:
 except ImportError:
     # if missing key from secret.py (you downloaded me :-)
     SECRET_KEY = "changeMePLEASE"
-app.secret_key = "pi_inventur_geheim"
+app.secret_key = SECRET_KEY
 
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=timeM)
 
@@ -50,9 +50,7 @@ def login():
         conn.close()
         
         if user and check_password_hash(user["password"], p):
-            # --- DIESE ZEILE HINZUFÜGEN ---
             session.permanent = True 
-            # ------------------------------
             
             session.update({
                 "user_id": user["id"],
@@ -260,9 +258,8 @@ def set_active_event():
     return jsonify({"success": True})
 
 
+
 # --- API-USER ---
-
-
 @app.route("/api/get_users")
 def get_users():
     if "user_id" not in session:
