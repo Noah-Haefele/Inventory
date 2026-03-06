@@ -33,7 +33,7 @@
     padding: 5px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    background: var(--input-bg);
+    background: var(--bg-td);
     color: var(--text-main);
     font-size: 14px;
     outline: none;
@@ -76,11 +76,14 @@
 .number-wrapper {
     display: flex;
     align-items: center;
-    border: 1px solid var(--border-color);
     border-radius: 4px;
     overflow: hidden;
-    background: var(--input-bg);
     min-width: 100px;
+    transition: box-shadow 0.3s ease;
+}
+
+.number-wrapper:hover {
+    box-shadow: 0 0 10px var(--shadow-color);
 }
 
 .custom-number-input {

@@ -171,7 +171,7 @@ class InventoryManager {
             <td>
                 ${this.renderQuantityControl(item)}
             </td>
-            <td style="background: var(--input-bg); color: var(--text-main);">${item.aktuell}</td>
+            <td ; color: var(--text-main);">${item.aktuell}</td>
             <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
             <td class="action-cell">
                 <button class="action-icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">📋</button>
