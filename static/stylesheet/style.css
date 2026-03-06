@@ -18,6 +18,8 @@
     --accent-red-hover: #ff7777bc;
     --dragdrop-background: #acc9ff;
     --devider: rgba(0, 0, 0, 0.12);
+    --border-radio-color: rgb(148 163 184);
+    --border-radio-color-hover: rgb(148 163 184);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,6 +42,8 @@
         --accent-blue-hover: #4d66ffbc;
         --dragdrop-background: #6c9fff;
         --devider: rgba(255,255,255,0.12);
+        --border-radio-color: rgb(51 65 85);
+        --border-radio-color-hover: rgb(100 116 139);
     }
 }
 
