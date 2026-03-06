@@ -76,9 +76,15 @@ class EventManagement {
             </td>
             <td contenteditable="true" data-field="info" onblur="window.updateEvent(${evt.id}, 'info', this.innerText)">${evt.info}</td>
             <td class="action-cell">
-                <input type="radio" name="activeEvent" 
-                       ${evt.is_active ? 'checked data-waschecked="true"' : 'data-waschecked="false"'} 
-                       onclick="window.toggleActiveEvent(this, ${evt.id})" title="Aktivieren">
+                <label>
+                    <input type="checkbox" name="activeEvent" 
+                        class="radio-input"
+                        ${evt.is_active ? 'checked data-waschecked="true"' : 'data-waschecked="false"'} 
+                        onclick="window.toggleActiveEvent(this, ${evt.id})" title="Aktivieren">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                </label>
                 <button class="action-icon" onclick="window.location.href='/event_detail/${evt.id}'" title="Detail">👁</button>
                 <button class="del-icon" onclick="window.deleteEvent(${evt.id})" title="Löschen">🗑</button>
             </td>
