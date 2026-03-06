@@ -23,14 +23,17 @@
 @media (prefers-color-scheme: dark) {
     :root {
         /* DARK MODE */
-        --bg-page: #121212;
+        --bg-page: #0f172a;
         --bg-content: #1e1e1e;
         --bg-navbar: #001a33;
+        --bg-th: #a4d2ff39;
+        --bg-td: #1e293b; 
         --bg-table-header: #2d2d2d;
         --bg-card: #252525;
         --text-main: #e0e0e0;
-        --text-muted: #bbbbbb;
-        --border-color: #444444;
+        --text-muted: #94a3b8;
+        --border-color: #a4d2ff39;
+        --shadow-color: #0000009a;
         --input-bg: #2d2d2d;
         --modal-overlay: rgba(0, 0, 0, 0.8);
         --accent-blue: #4d66ff;
@@ -144,8 +147,15 @@ td {
     border-bottom: 1px solid var(--border-color);
     height: 45px;
     vertical-align: middle;
-    background-color: var(--bg-content);
     color: var(--text-main);
+}
+
+th{
+    background-color: var(--bg-th);
+}
+
+td{
+    background-color: var(--bg-td);
 }
 
 th:last-child,
