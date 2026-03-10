@@ -231,8 +231,10 @@ thead {
 }
 
 .content {
+    width: 70%;
     padding: 20px 30px;
     flex: 1; /* pushes the footer all the way down */
+    margin: 0 auto;
 }
 
 .site-footer {
