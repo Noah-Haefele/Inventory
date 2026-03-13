@@ -129,7 +129,7 @@ class InventoryManager {
     }
 
     renderGroupSelect(id, currentGroup) {
-        return `<select class="group-select" onchange="inventoryManager.updateItem(${id}, 'gruppe', this.value)">
+        return `<select class="select" onchange="inventoryManager.updateItem(${id}, 'gruppe', this.value)">
             ${this.inventoryGroups.map(g => `
                 <option value="${g.name}" ${g.name === currentGroup ? 'selected' : ''}>
                     ${g.name}

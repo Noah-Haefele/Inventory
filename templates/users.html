@@ -49,7 +49,7 @@
                 {% for user in users if user['username'] == 'Admin' %}
                 <tr data-id="{{ user['id'] }}">
                     <td class="icon-cell"><img src="{{ url_for('static', filename='images/admin.svg') }}" alt="Admin" class="role-icon" title="Administrator"></td>
-                    <td data-field="username" style="background: var(--input-bg);"><strong>{{ user['username']
+                    <td data-field="username"><strong>{{ user['username']
                             }}</strong>
                     </td>
                     <td contenteditable="true" data-field="password" class="password-cell">••••••••</td>
@@ -66,7 +66,7 @@
                     <td contenteditable="true" data-field="username">{{ user['username'] }}</td>
                     <td contenteditable="true" data-field="password" class="password-cell">••••••••</td>
                     <td>
-                        <select class="role-select" onchange="updateRole(this)">
+                        <select class="select" onchange="updateRole(this)">
                             <option value="Editor" {% if user['role']=='Editor' %}selected{% endif %}>Editor</option>
                             <option value="User" {% if user['role']=='User' or user['role']=='Benutzer' %}selected{%
                                 endif %}>User</option>

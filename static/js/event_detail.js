@@ -119,7 +119,7 @@ class EventDatailManager {
                         <small>/ ${item.anzahl}</small>
                     </div>
                 </td>
-                <td><button style="width: 100%; height: 100%;" class="del-icon" onclick="removeAssignment(${item.assignment_id})" title="Löschen">🗑</button></td>
+                <td class="action-cell"><button class="del-icon icon" onclick="removeAssignment(${item.assignment_id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button></td>
             `;
             tbody.appendChild(tr);
         })
