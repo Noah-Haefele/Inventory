@@ -95,7 +95,6 @@ class InventoryManager {
                 input.value = "";
                 await this.loadGroups();
 
-                // Optional: Focus back on the input for convenience
                 input.focus();
             } else {
                 alert(data.error || "Fehler beim Hinzufügen der Gruppe");
@@ -400,8 +399,6 @@ class InventoryManager {
     }
 }
 
-// Create a global instance
 window.inventoryManager = new InventoryManager();
 
-// Expose methods globally for inline event handlers
 window.toggleModal = (id, show) => inventoryManager.toggleModal(id, show);

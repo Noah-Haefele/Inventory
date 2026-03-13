@@ -66,6 +66,7 @@ body {
     justify-content: space-between; /* Footer stays down */
 }
 
+
 .content {
     padding: 20px 30px;
 }
@@ -133,6 +134,7 @@ body {
     background: var(--accent-red-hover);
 }
 
+
 table {
     width: 100%;
     margin-top: 20px;
@@ -175,6 +177,7 @@ thead {
     background-color: var(--bg-table-header);
     font-weight: bold;
 }
+
 
 .password-cell {
     font-family: monospace;
@@ -275,7 +278,7 @@ thead {
 }
 
 .footer-links a {
-    color: var(--text-main); /* Uses your existing text color */
+    color: var(--text-main);
     text-decoration: none;
     font-size: 0.9rem;
     transition: opacity 0.2s ease;

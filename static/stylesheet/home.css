@@ -3,7 +3,6 @@
     gap: 10px;
 }
 
-
 .square-btn {
     width: 32px;
     height: 32px;
@@ -17,8 +16,6 @@
     justify-content: center;
     font-size: 18px;
 }
-
-
 
 .group-item {
     display: flex;
