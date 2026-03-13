@@ -177,10 +177,8 @@ class UserManagement {
 
 // Initialize the user management when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-    // Make static methods globally accessible
     window.deleteRow = UserManagement.deleteRow;
     window.updateRole = UserManagement.updateRole;
 
-    // Create instance of UserManagement
     new UserManagement();
 });
