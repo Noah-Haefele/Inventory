@@ -84,7 +84,7 @@
             <br>
             {% if role == 'Administrator' or role == 'Editor' %}
             <div id="dropZone" class="drop-zone">
-                <p>PDF hierher ziehen oder klicken zum Hochladen</p>
+                <img class="icon" src="{{ url_for('static', filename='images/upload.svg') }}" alt="Upload" style="width: 70px; height: 70px;">
                 <input type="file" id="pdfInput" accept="application/pdf" style="display: none;">
             </div>
             {% endif %}
