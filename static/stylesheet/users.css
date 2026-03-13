@@ -18,3 +18,16 @@
     color: var(--accent-blue);
     padding: 5px;
 }
+
+.icon-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px !important;
+}
+
+.role-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
