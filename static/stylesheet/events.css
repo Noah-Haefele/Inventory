@@ -63,12 +63,3 @@
 .date-picker-input:focus {
     border-color: #0004ff;
 }
-
-.action-icon,
-.del-icon {
-    font-size: 1.1em;
-    border: none;
-    background: none;
-    color: var(--text-main);
-    cursor: pointer;
-}

@@ -174,8 +174,8 @@ class InventoryManager {
             <td ; color: var(--text-main);">${item.aktuell}</td>
             <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
             <td class="action-cell">
-                <button class="action-icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">📋</button>
-                ${this.canEdit ? `<button class="del-icon" onclick="inventoryManager.deleteItem(${item.id})" title="Löschen">🗑</button>` : ''}
+                <button class="icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen"><img src="/static/images/draft.svg" alt="Anleitungen"></button>
+                ${this.canEdit ? `<button class="del-icon icon" onclick="inventoryManager.deleteItem(${item.id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button>` : ''}
             </td>
         `;
         tbody.appendChild(tr);
@@ -371,7 +371,7 @@ class InventoryManager {
                 div.innerHTML = `
                     <span style="cursor:pointer; color:#007bff;" 
                         onclick="window.open('/${p.filepath}', '_blank')">📄 ${p.filename}</span>
-                    ${this.canEdit ? `<button class="del-icon" onclick="inventoryManager.deletePdf(${p.id})" title="Löschen">🗑</button>` : ''}
+                    ${this.canEdit ? `<button class="del-icon icon" onclick="inventoryManager.deletePdf(${p.id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button>` : ''}
                 `;
                 list.appendChild(div);
             });

@@ -85,8 +85,8 @@ class EventManagement {
                         <div class="radio-btn-inner"></div>
                     </div>
                 </label>
-                <button class="action-icon" onclick="window.location.href='/event_detail/${evt.id}'" title="Detail">👁</button>
-                <button class="del-icon" onclick="window.deleteEvent(${evt.id})" title="Löschen">🗑</button>
+                <button class="icon" onclick="window.location.href='/event_detail/${evt.id}'" title="Detail"><img src="/static/images/edit.svg" alt="Detail"></button>
+                <button class="del-icon icon" onclick="window.deleteEvent(${evt.id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button>
             </td>
         `;
 
