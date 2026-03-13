@@ -63,13 +63,13 @@ class EventManagement {
             <td>
                 <input type="date" 
                     value="${evt.datum}" 
-                    class="date-picker-input" 
+                    class="select date-picker-input" 
                     onchange="window.updateEvent(${evt.id}, 'datum', this.value)">
             </td>
             <td contenteditable="true" data-field="name" onblur="window.updateEvent(${evt.id}, 'name', this.innerText)">${evt.name}</td>
             <td contenteditable="true" data-field="ort" onblur="window.updateEvent(${evt.id}, 'ort', this.innerText)">${evt.ort}</td>
             <td>
-                <select class="role-select" onchange="window.updateEvent(${evt.id}, 'verantwortlich', this.value)">
+                <select class="select" onchange="window.updateEvent(${evt.id}, 'verantwortlich', this.value)">
                     <option value="-" ${evt.verantwortlich === '-' ? 'selected' : ''}>- kein -</option>
                     ${userOptions}
                 </select>
