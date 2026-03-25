@@ -308,3 +308,20 @@ thead {
     justify-content: center; /* centered vertically */
     align-items: center;     /* centered horizontally */
 }
+
+@media (max-width: 100rem) {
+    .content {
+        width: auto;
+    }
+}
+
+@media (max-width: 70rem) {
+    .content {
+        width: auto;
+    }
+
+    #home-table th:nth-child(6),
+    #home-table td:nth-child(6) {
+        display: none;
+    }
+}
