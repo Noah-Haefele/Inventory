@@ -8,6 +8,7 @@
     --text-main: #000000;
     --text-muted: #555555;
     --border-color: #cccccc;
+    --shadow-color: #0000009a;
     --input-bg: #ffffff;
     --modal-overlay: rgba(0, 0, 0, 0.5);
     --accent-blue: #0004ff;
@@ -26,7 +27,7 @@
     :root {
         /* DARK MODE */
         --bg-page: #0f172a;
-        --bg-content: #1e1e1e;
+        --bg-content: #0f172a;
         --bg-navbar: #001a33;
         --bg-th: #a4d2ff39;
         --bg-td: #1e293b; 
@@ -35,7 +36,6 @@
         --text-main: #e0e0e0;
         --text-muted: #94a3b8;
         --border-color: #a4d2ff39;
-        --shadow-color: #0000009a;
         --input-bg: #2d2d2d;
         --modal-overlay: rgba(0, 0, 0, 0.8);
         --accent-blue: #4d66ff;
@@ -246,7 +246,8 @@ thead {
 }
 
 .modal-content {
-    background: var(--bg-card);
+    background: var(--bg-content);
+    border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 25px;
     border-radius: 8px;
