@@ -132,7 +132,13 @@ class EventDatailManager {
 
         listDiv.innerHTML = items.map(i => `
             <div class="check-item">
-                <input type="checkbox" id="item-${i.id}" value="${i.id}" class="inv-checkbox">
+                <label>
+                    <input type="checkbox" name="activeEvent" 
+                        class="radio-input" id="item-${i.id}" value="${i.id}">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                </label>
                 <label for="item-${i.id}" style="flex-grow:1;"><strong>${i.name_id}</strong> (${i.gruppe})</label>
                 <div style="font-size: 0.8em; color: #666;">Verfügbar: ${i.anzahl}</div>
                 <input type="number" id="qty-${i.id}" value="1" min="1" max="${i.anzahl}" 
