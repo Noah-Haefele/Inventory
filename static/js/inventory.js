@@ -95,7 +95,6 @@ class InventoryManager {
                 input.value = "";
                 await this.loadGroups();
 
-                // Optional: Focus back on the input for convenience
                 input.focus();
             } else {
                 alert(data.error || "Fehler beim Hinzufügen der Gruppe");
@@ -129,7 +128,7 @@ class InventoryManager {
     }
 
     renderGroupSelect(id, currentGroup) {
-        return `<select class="group-select" onchange="inventoryManager.updateItem(${id}, 'gruppe', this.value)">
+        return `<select class="select" onchange="inventoryManager.updateItem(${id}, 'gruppe', this.value)">
             ${this.inventoryGroups.map(g => `
                 <option value="${g.name}" ${g.name === currentGroup ? 'selected' : ''}>
                     ${g.name}
@@ -171,11 +170,11 @@ class InventoryManager {
             <td>
                 ${this.renderQuantityControl(item)}
             </td>
-            <td style="background: var(--input-bg); color: var(--text-main);">${item.aktuell}</td>
+            <td ; color: var(--text-main);">${item.aktuell}</td>
             <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
             <td class="action-cell">
-                <button class="action-icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen">📋</button>
-                ${this.canEdit ? `<button class="del-icon" onclick="inventoryManager.deleteItem(${item.id})" title="Löschen">🗑</button>` : ''}
+                <button class="icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen"><img src="/static/images/draft.svg" alt="Anleitungen"></button>
+                ${this.canEdit ? `<button class="del-icon icon" onclick="inventoryManager.deleteItem(${item.id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button>` : ''}
             </td>
         `;
         tbody.appendChild(tr);
@@ -371,7 +370,7 @@ class InventoryManager {
                 div.innerHTML = `
                     <span style="cursor:pointer; color:#007bff;" 
                         onclick="window.open('/${p.filepath}', '_blank')">📄 ${p.filename}</span>
-                    ${this.canEdit ? `<button class="del-icon" onclick="inventoryManager.deletePdf(${p.id})" title="Löschen">🗑</button>` : ''}
+                    ${this.canEdit ? `<button class="del-icon icon" onclick="inventoryManager.deletePdf(${p.id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button>` : ''}
                 `;
                 list.appendChild(div);
             });
@@ -400,8 +399,6 @@ class InventoryManager {
     }
 }
 
-// Create a global instance
 window.inventoryManager = new InventoryManager();
 
-// Expose methods globally for inline event handlers
 window.toggleModal = (id, show) => inventoryManager.toggleModal(id, show);

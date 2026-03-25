@@ -8,6 +8,7 @@
     --text-main: #000000;
     --text-muted: #555555;
     --border-color: #cccccc;
+    --shadow-color: #0000009a;
     --input-bg: #ffffff;
     --modal-overlay: rgba(0, 0, 0, 0.5);
     --accent-blue: #0004ff;
@@ -18,25 +19,31 @@
     --accent-red-hover: #ff7777bc;
     --dragdrop-background: #acc9ff;
     --devider: rgba(0, 0, 0, 0.12);
+    --border-radio-color: rgb(148 163 184);
+    --border-radio-color-hover: rgb(148 163 184);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         /* DARK MODE */
-        --bg-page: #121212;
-        --bg-content: #1e1e1e;
+        --bg-page: #0f172a;
+        --bg-content: #0f172a;
         --bg-navbar: #001a33;
+        --bg-th: #a4d2ff39;
+        --bg-td: #1e293b; 
         --bg-table-header: #2d2d2d;
-        --bg-card: #252525;
+        --bg-card: #0f172a;
         --text-main: #e0e0e0;
-        --text-muted: #bbbbbb;
-        --border-color: #444444;
+        --text-muted: #94a3b8;
+        --border-color: #a4d2ff39;
         --input-bg: #2d2d2d;
         --modal-overlay: rgba(0, 0, 0, 0.8);
         --accent-blue: #4d66ff;
         --accent-blue-hover: #4d66ffbc;
         --dragdrop-background: #6c9fff;
         --devider: rgba(255,255,255,0.12);
+        --border-radio-color: rgb(51 65 85);
+        --border-radio-color-hover: rgb(100 116 139);
     }
 }
 
@@ -58,6 +65,7 @@ body {
 
     justify-content: space-between; /* Footer stays down */
 }
+
 
 .content {
     padding: 20px 30px;
@@ -126,6 +134,7 @@ body {
     background: var(--accent-red-hover);
 }
 
+
 table {
     width: 100%;
     margin-top: 20px;
@@ -144,8 +153,15 @@ td {
     border-bottom: 1px solid var(--border-color);
     height: 45px;
     vertical-align: middle;
-    background-color: var(--bg-content);
     color: var(--text-main);
+}
+
+th{
+    background-color: var(--bg-th);
+}
+
+td{
+    background-color: var(--bg-td);
 }
 
 th:last-child,
@@ -162,6 +178,7 @@ thead {
     font-weight: bold;
 }
 
+
 .password-cell {
     font-family: monospace;
 }
@@ -177,21 +194,42 @@ thead {
     margin: 0 8px;
 }
 
-.del-icon {
+.icon {
+    width: 16px;
+    height: 16px;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 18px;
-    transition: transform 0.3s ease;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    color: var(--text-main);
+    filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .icon {
+    filter: none;
+  }
+}
+
+.del-icon {
+    transition: transform 0.3s ease;
 }
 
 .del-icon:hover {
-    color: red;
+    filter: invert(19%) sepia(98%) saturate(7494%) hue-rotate(1deg) brightness(97%) contrast(119%);
     transform: scale(1.3) rotate(-15deg);
+}
+
+.select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-td);
+    color: var(--text-main);
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
 }
 
 .modal {
@@ -208,7 +246,8 @@ thead {
 }
 
 .modal-content {
-    background: var(--bg-card);
+    background: var(--bg-content);
+    border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 25px;
     border-radius: 8px;
@@ -217,8 +256,10 @@ thead {
 }
 
 .content {
+    width: 70%;
     padding: 20px 30px;
     flex: 1; /* pushes the footer all the way down */
+    margin: 0 auto;
 }
 
 .site-footer {
@@ -238,7 +279,7 @@ thead {
 }
 
 .footer-links a {
-    color: var(--text-main); /* Uses your existing text color */
+    color: var(--text-main);
     text-decoration: none;
     font-size: 0.9rem;
     transition: opacity 0.2s ease;

@@ -1,32 +1,56 @@
-input[type="radio"] {
-    width: 18px;
-    height: 18px;
+.radio-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio-btn-custom {
+    width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: var(--border-radio-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-property: all;
+    transition-duration: 300ms;
     cursor: pointer;
-    accent-color: var(--accent-blue);
+    position: relative;
+    background-color: transparent;
+}
+
+.radio-btn-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: transparent;
+    transition-property: all;
+    transition-duration: 300ms;
+    transform: scale(0);
+}
+
+.radio-input:checked+.radio-btn-custom {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+.radio-input:checked+.radio-btn-custom .radio-btn-inner {
+    background-color: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue), 0 0 15px var(--accent-blue);
+    transform: scale(1);
+}
+
+.radio-btn-custom:hover {
+    border-color: var(--border-radio-color-hover);
 }
 
 .date-picker-input {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background: var(--input-bg);
-    color: var(--text-main);
-    font-size: 14px;
-    outline: none;
     font-family: inherit;
-    cursor: pointer;
 }
 
 .date-picker-input:focus {
     border-color: #0004ff;
-}
-
-.action-icon,
-.del-icon {
-    font-size: 1.1em;
-    border: none;
-    background: none;
-    color: var(--text-main);
-    cursor: pointer;
 }
