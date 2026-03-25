@@ -134,16 +134,26 @@ class EventDatailManager {
             <div class="check-item">
                 <label>
                     <input type="checkbox" name="activeEvent" 
-                        class="radio-input" id="item-${i.id}" value="${i.id}">
+                        class="radio-input inv-checkbox" id="item-${i.id}" value="${i.id}">
                     <div class="radio-btn-custom">
                         <div class="radio-btn-inner"></div>
                     </div>
                 </label>
                 <label for="item-${i.id}" style="flex-grow:1;"><strong>${i.name_id}</strong> (${i.gruppe})</label>
                 <div style="font-size: 0.8em; color: #666;">Verfügbar: ${i.anzahl}</div>
-                <input type="number" id="qty-${i.id}" value="1" min="1" max="${i.anzahl}" 
-                    class="qty-input" 
-                    onblur="validateInput(this, 1, ${i.anzahl})">
+
+
+                <div class="number-wrapper" style="width: 8%;">
+                    <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
+                        <input type="number" 
+                            id="qty-${i.id}"
+                            value="1" 
+                            min="1" 
+                            max="${i.anzahl}"
+                            class="custom-number-input"
+                            onblur="validateInput(this, 1, ${i.anzahl})">
+                    <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
+                </div>                
             </div>
         `).join('');
     }
