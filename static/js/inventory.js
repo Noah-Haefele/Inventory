@@ -122,7 +122,7 @@ class InventoryManager {
         list.innerHTML = this.inventoryGroups.map(g => `
             <div id="groupListLines">
                 <span>${g.name}</span>
-                <button class="del-icon" onclick="inventoryManager.removeGroup(${g.id})">🗑</button>
+                <button class="del-icon icon" onclick="inventoryManager.removeGroup(${g.id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button>
             </div>
         `).join('');
     }
