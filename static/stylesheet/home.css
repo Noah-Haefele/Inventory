@@ -127,6 +127,7 @@
             transparent
         )
     bottom / 100% 1px no-repeat;
+    overflow-x: hidden;
 }
 
 @media (max-width: 55rem) {
