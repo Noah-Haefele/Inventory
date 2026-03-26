@@ -242,14 +242,18 @@ class InventoryManager {
         }
     }
 
-    async addNewInventoryItem() {
+   async addNewInventoryItem() {
         if (this.inventoryGroups.length === 0) {
             alert("Zuerst eine Gruppe anlegen!");
             return;
         }
 
+        const defaultGroup = (this.inventoryGroups && this.inventoryGroups.length > 0) 
+            ? this.inventoryGroups[0].name 
+            : "Standard";
+
         const newItem = {
-            gruppe: this.inventoryGroups[0].name,
+            gruppe: defaultGroup,
             name_id: "NEU-" + Math.floor(1000 + Math.random() * 9000)
         };
 
@@ -259,13 +263,22 @@ class InventoryManager {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newItem)
             });
+            
+            // GUARD: Stop here if the server crashed (returns 500, HTML, etc.)
+            if (!res.ok) {
+                throw new Error(`Server meldet Fehlercode: ${res.status}`);
+            }
+
             const data = await res.json();
 
             if (data.success) {
                 await this.loadInventory();
+            } else {
+                alert("Server-Fehler: " + data.error);
             }
         } catch (error) {
             console.error("Error adding inventory item:", error);
+            alert("Aktion fehlgeschlagen. Bitte Konsolenausgabe prüfen.");
         }
     }
 
