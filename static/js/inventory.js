@@ -170,7 +170,7 @@ class InventoryManager {
             <td>
                 ${this.renderQuantityControl(item)}
             </td>
-            <td ; color: var(--text-main);">${item.aktuell}</td>
+            <td style="text-align: center;">${item.aktuell}</td>
             <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
             <td class="action-cell">
                 <button class="icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen"><img src="/static/images/draft.svg" alt="Anleitungen"></button>
@@ -191,7 +191,8 @@ class InventoryManager {
                     value="${item.anzahl || 0}" 
                     min="1" 
                     class="custom-number-input"
-                    onchange="inventoryManager.checkAndUpdateQty(${item.id}, this)">
+                    onchange="inventoryManager.checkAndUpdateQty(${item.id}, this)"
+                    disabled>
                 <button style="color: green;" class="qty-btn" onclick="inventoryManager.adjustQuantity(${item.id}, 1)">+</button>
             </div>
         `;
