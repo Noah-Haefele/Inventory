@@ -10,7 +10,7 @@ class EventManagement {
     init() {
         if (!this.tableBody) return;
 
-        // Attach event listeners and load initial events
+        // Attach event listeners and load initials
         this.attachEventListeners();
         this.loadEvents();
     }
