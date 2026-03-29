@@ -78,8 +78,8 @@
     #events-table td {
         display: flex !important;
         width: 100% !important;
-        justify-content: space-between !important;
-        align-items: center !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
         padding: 10px 15px !important;
         border-right: none !important;
         border-bottom: 1px solid var(--devider) !important;
@@ -92,6 +92,5 @@
         font-weight: bold;
         color: var(--text-muted);
         text-align: left;
-        flex: 1;
     }
 }
