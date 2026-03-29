@@ -135,12 +135,6 @@
         display: none !important;
     }
 
-    .group-select {
-        width: auto !important;
-        max-width: 150px !important;
-        margin-left: auto;
-    }
-
     .number-wrapper {
         width: 100px !important;
         min-width: 100px !important;
