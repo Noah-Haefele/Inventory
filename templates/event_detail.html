@@ -65,6 +65,46 @@
             border-radius: 4px;
             text-align: center;
         }
+
+        @media (max-width: 55rem) {
+            #eventDetail-table thead {
+                display: none !important;
+            }
+
+            .number-wrapper {
+                width: 100px !important;
+                min-width: 100px !important;
+                margin-left: auto;
+            }
+
+            #eventDetail-table tr {
+                display: block !important;
+                width: 100% !important;
+                margin-bottom: 15px !important;
+                border: 1px solid var(--border-color) !important;
+                border-radius: 8px !important;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+            }
+
+            #eventDetail-table td {
+                display: flex !important;
+                width: 100% !important;
+                justify-content: flex-start !important;
+                align-items: flex-start !important;
+                padding: 10px 15px !important;
+                border-right: none !important;
+                border-bottom: 1px solid var(--devider) !important;
+                text-align: left !important;
+                height: auto !important;
+            }
+
+            #eventDetail-table td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: var(--text-muted);
+                text-align: left;
+            }
+        }
     </style>
     <script src="{{ url_for('static', filename='js/event_detail.js') }}"></script>
 </head>
@@ -85,24 +125,23 @@
     </nav>
     <div class="content">
         <a href="{{ url_for('events') }}">← Zurück</a>
-        <div class="detail-container" id="detail-context" data-event-id="{{ event.id }}">
-            <div style="display: flex; justify-content: space-between;">
-                <h2>{{ event.name }}</h2>
-                <button class="square-btn btn-green" id="open-modal-btn">+</button>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Gruppe</th>
-                        <th>Name</th>
-                        <th>Lagerort</th>
-                        <th class="qty-column">Menge</th>
-                        <th style="width: 80px;">Aktion</th>
-                    </tr>
-                </thead>
-                <tbody id="assigned-body"></tbody>
-            </table>
+        <div style="display: flex; justify-content: space-between;" id="detail-context" data-event-id="{{ event.id }}">
+            <h2>{{ event.name }}</h2>
+            <button class="square-btn btn-green" id="open-modal-btn">+</button>
         </div>
+        <table id="eventDetail-table">
+            <thead>
+                <tr>
+                    <th>Gruppe</th>
+                    <th>Name</th>
+                    <th>Lagerort</th>
+                    <th class="qty-column">Menge</th>
+                    <th style="width: 80px;">Aktion</th>
+                </tr>
+            </thead>
+            <tbody id="assigned-body"></tbody>
+        </table>
+
     </div>
 
     <div id="addItemModal" class="modal">
