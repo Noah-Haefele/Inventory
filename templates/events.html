@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Inventur</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
@@ -39,12 +40,12 @@
         <table id="events-table">
             <thead>
                 <tr>
-                    <th style="width: 10%;">Datum</th>
+                    <th style="width: 15%;">Datum</th>
                     <th style="width: 20%">Event Name</th>
                     <th style="width: 20%">Ort</th>
                     <th style="width: 20%">Verantwortlich</th>
                     <th style="width: 20%;">Info</th>
-                    <th style="width: 10%;">Aktionen</th>
+                    <th style="width: 15%;">Aktionen</th>
                 </tr>
             </thead>
             <tbody id="events-table-body">

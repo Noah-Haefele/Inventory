@@ -122,7 +122,7 @@ class InventoryManager {
         list.innerHTML = this.inventoryGroups.map(g => `
             <div id="groupListLines">
                 <span>${g.name}</span>
-                <button class="del-icon" onclick="inventoryManager.removeGroup(${g.id})">🗑</button>
+                <button class="del-icon icon" onclick="inventoryManager.removeGroup(${g.id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button>
             </div>
         `).join('');
     }
@@ -170,7 +170,7 @@ class InventoryManager {
             <td>
                 ${this.renderQuantityControl(item)}
             </td>
-            <td ; color: var(--text-main);">${item.aktuell}</td>
+            <td style="text-align: center;">${item.aktuell}</td>
             <td ${editAttr} onblur="inventoryManager.updateItem(${item.id}, 'info', this.innerText)">${item.info}</td>
             <td class="action-cell">
                 <button class="icon" onclick="inventoryManager.openPdfModal(${item.id}, '${item.name_id}')" title="Anleitungen"><img src="/static/images/draft.svg" alt="Anleitungen"></button>
@@ -191,7 +191,8 @@ class InventoryManager {
                     value="${item.anzahl || 0}" 
                     min="1" 
                     class="custom-number-input"
-                    onchange="inventoryManager.checkAndUpdateQty(${item.id}, this)">
+                    onchange="inventoryManager.checkAndUpdateQty(${item.id}, this)"
+                    disabled>
                 <button style="color: green;" class="qty-btn" onclick="inventoryManager.adjustQuantity(${item.id}, 1)">+</button>
             </div>
         `;
@@ -242,14 +243,18 @@ class InventoryManager {
         }
     }
 
-    async addNewInventoryItem() {
+   async addNewInventoryItem() {
         if (this.inventoryGroups.length === 0) {
             alert("Zuerst eine Gruppe anlegen!");
             return;
         }
 
+        const defaultGroup = (this.inventoryGroups && this.inventoryGroups.length > 0) 
+            ? this.inventoryGroups[0].name 
+            : "Standard";
+
         const newItem = {
-            gruppe: this.inventoryGroups[0].name,
+            gruppe: defaultGroup,
             name_id: "NEU-" + Math.floor(1000 + Math.random() * 9000)
         };
 
@@ -259,13 +264,22 @@ class InventoryManager {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newItem)
             });
+            
+            // GUARD: Stop here if the server crashed (returns 500, HTML, etc.)
+            if (!res.ok) {
+                throw new Error(`Server meldet Fehlercode: ${res.status}`);
+            }
+
             const data = await res.json();
 
             if (data.success) {
                 await this.loadInventory();
+            } else {
+                alert("Server-Fehler: " + data.error);
             }
         } catch (error) {
             console.error("Error adding inventory item:", error);
+            alert("Aktion fehlgeschlagen. Bitte Konsolenausgabe prüfen.");
         }
     }
 
