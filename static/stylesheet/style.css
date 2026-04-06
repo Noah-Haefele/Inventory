@@ -324,4 +324,9 @@ thead {
     #home-table td:nth-child(6) {
         display: none;
     }
+
+    #events-table th:nth-child(5),
+    #events-table td:nth-child(5) {
+        display: none;
+    }
 }
