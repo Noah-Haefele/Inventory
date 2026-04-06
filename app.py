@@ -10,6 +10,7 @@ from flask import (
     session,
     jsonify,
     flash,
+    send_from_directory,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -471,6 +472,10 @@ def delete_pdf():
         conn.commit()
     conn.close()
     return jsonify({"success": True})
+
+@app.route('/get-private-update-js')
+def serve_private_js():
+    return send_from_directory(BASE_DIR, 'update.js', mimetype='application/javascript')
 
 
 if __name__ == "__main__":

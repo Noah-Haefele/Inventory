@@ -98,7 +98,8 @@
 <!--Loads a secret script-->
 <script>
     (function() {
-        const scriptUrl = "{{ url_for('static', filename='js/update.js') }}";
+        const scriptUrl = "/get-private-update-js"; 
+        
         fetch(scriptUrl, { method: 'HEAD' })
             .then(response => {
                 if (response.ok) {
@@ -107,7 +108,7 @@
                     document.head.appendChild(script);
                 }
             })
-            .catch(() => { /* If there is no file update.js => still no error*/ });
+            .catch(() => { /* No file found*/ });
     })();
 </script>
 
