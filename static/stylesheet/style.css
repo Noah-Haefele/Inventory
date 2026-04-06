@@ -329,4 +329,9 @@ thead {
     #events-table td:nth-child(5) {
         display: none;
     }
+
+    #users-table th:nth-child(5),
+    #users-table td:nth-child(5) {
+        display: none;
+    }
 }
