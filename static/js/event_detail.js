@@ -113,8 +113,7 @@ class EventDatailManager {
                                     min="1" 
                                     max="${item.anzahl}"
                                     class="custom-number-input"
-                                    onchange="UpdateQty(${item.assignment_id},${item.anzahl}, this)"
-                                    disabled>
+                                    onchange="UpdateQty(${item.assignment_id},${item.anzahl}, this)">
                             <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
                         </div>
                         <small>/ ${item.anzahl}</small>
@@ -152,8 +151,7 @@ class EventDatailManager {
                             min="1" 
                             max="${i.anzahl}"
                             class="custom-number-input"
-                            onblur="validateInput(this, 1, ${i.anzahl})"
-                            disabled>
+                            onblur="validateInput(this, 1, ${i.anzahl})">
                     <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
                 </div>                
             </div>
