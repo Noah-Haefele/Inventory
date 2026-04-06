@@ -92,6 +92,22 @@
 
 <script id="session-config" src="{{ url_for('static', filename='js/sessiontimer.js') }}"
     data-logout-url="{{ url_for('logout') }}">
-    </script>
+</script>
+
+<!--Loads a secret script-->
+<script>
+    (function() {
+        const scriptUrl = "{{ url_for('static', filename='js/update.js') }}";
+        fetch(scriptUrl, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    const script = document.createElement('script');
+                    script.src = scriptUrl;
+                    document.head.appendChild(script);
+                }
+            })
+            .catch(() => { /* If there is no file update.js => still no error*/ });
+    })();
+</script>
 
 </html>

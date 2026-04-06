@@ -2,3 +2,4 @@
 __pycache__
 static/manuals
 secret.py
+static/js/update.js
