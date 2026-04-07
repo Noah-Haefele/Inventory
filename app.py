@@ -10,6 +10,7 @@ from flask import (
     session,
     jsonify,
     flash,
+    send_from_directory,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -142,36 +143,35 @@ def get_inventory():
 
 @app.route("/api/add_inventory", methods=["POST"])
 def add_inventory():
-    conn = get_db_connection()
     try:
-        first_group = conn.execute(
-            "SELECT name FROM inventory_groups LIMIT 1"
-        ).fetchone()
+        d = request.json
+        if not d:
+            return jsonify({"success": False, "error": "Keine Daten empfangen"}), 400
 
-        # default group
-        group_name = first_group["name"] if first_group else "Standard"
+        gruppe = d.get("gruppe", "Standard")
+        name_id = d.get("name_id", "Neuer Artikel")
 
-        # finds unique name
-        i = 1
-        while conn.execute(
-            "SELECT id FROM inventory WHERE name_id=?", (f"Neuer Artikel {i}",)
-        ).fetchone():
-            i += 1
-        new_name = f"Neuer Artikel {i}"
+        conn = get_db_connection()
+        
+        if conn.execute("SELECT id FROM inventory WHERE name_id=?", (name_id,)).fetchone():
+            return jsonify({"success": False, "error": "Dieser Name existiert bereits."}), 400
 
         cur = conn.execute(
             "INSERT INTO inventory (gruppe, name_id, lagerort, anzahl, info, gebrauch) VALUES (?, ?, ?, ?, ?, ?)",
-            (group_name, new_name, "-", 1, "-", "-"),
+            (gruppe, name_id, "-", 1, "-", "-"),
         )
         new_id = cur.lastrowid
         conn.commit()
-
+        
         return jsonify({"success": True, "id": new_id})
 
-    except sqlite3.IntegrityError:
-        return jsonify({"success": False, "error": "Name bereits vergeben"}), 400
+    except sqlite3.OperationalError as db_err:
+        return jsonify({"success": False, "error": f"Datenbank-Struktur Fehler: {str(db_err)}"}), 500
+    except Exception as e:
+        return jsonify({"success": False, "error": f"Allgemeiner Fehler: {str(e)}"}), 500
     finally:
-        conn.close()
+        if 'conn' in locals():
+            conn.close()
 
 
 @app.route("/api/update_inventory", methods=["POST"])
@@ -472,6 +472,10 @@ def delete_pdf():
         conn.commit()
     conn.close()
     return jsonify({"success": True})
+
+@app.route('/get-private-update-js')
+def serve_private_js():
+    return send_from_directory(BASE_DIR, 'update.js', mimetype='application/javascript')
 
 
 if __name__ == "__main__":

@@ -38,3 +38,43 @@
     filter: none;
   }
 }
+
+@media (max-width: 55rem) {
+    #users-table thead {
+        display: none !important;
+    }
+
+    .number-wrapper {
+        width: 100px !important;
+        min-width: 100px !important;
+        margin-left: auto;
+    }
+
+    #users-table tr {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 15px !important;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+    }
+
+    #users-table td {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        padding: 10px 15px !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--devider) !important;
+        text-align: left !important;
+        height: auto !important;
+    }
+
+    #users-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--text-muted);
+        text-align: left;
+    }
+}

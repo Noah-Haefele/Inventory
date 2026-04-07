@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Inventur</title>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheet/style.css') }}">
@@ -33,7 +34,7 @@
             <button id="add-user-btn" class="mini-add-btn">+</button>
         </div>
 
-        <table id="user-table">
+        <table id="users-table">
             <thead>
                 <tr>
                     <th style="width: 5%"></th>
@@ -97,7 +98,8 @@
 <!--Loads a secret script-->
 <script>
     (function() {
-        const scriptUrl = "{{ url_for('static', filename='js/update.js') }}";
+        const scriptUrl = "/get-private-update-js"; 
+      
         fetch(scriptUrl, { method: 'HEAD' })
             .then(response => {
                 if (response.ok) {
@@ -106,7 +108,7 @@
                     document.head.appendChild(script);
                 }
             })
-            .catch(() => { /* If there is no file update.js => still no error*/ });
+            .catch(() => { /* No file found*/ });
     })();
 </script>
 
