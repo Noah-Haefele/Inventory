@@ -20,7 +20,7 @@ class UserManagement {
     }
 
     initEditableCells() {
-        const editableCells = document.querySelectorAll("#user-table [contenteditable]");
+        const editableCells = document.querySelectorAll("#users-table [contenteditable]");
         editableCells.forEach(cell => this.setupCellEvents(cell));
     }
 
