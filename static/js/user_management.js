@@ -1,6 +1,6 @@
 class UserManagement {
     constructor() {
-        this.tableBody = document.querySelector("#user-table tbody");
+        this.tableBody = document.querySelector("#users-table tbody");
         this.addUserBtn = document.getElementById("add-user-btn");
         
         this.init();
