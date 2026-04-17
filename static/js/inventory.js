@@ -3,6 +3,8 @@ class InventoryManager {
         this.inventoryGroups = [];
         this.canEdit = false;
         this.currentPdfItemId = null;
+        this.inventoryItems = [];
+        this.currentSort = 'default';
 
         this.initEventListeners();
     }
@@ -13,10 +15,12 @@ class InventoryManager {
                 (USER_ROLE === 'Administrator' || USER_ROLE === 'Editor'));
 
             await this.loadGroups();
+            this.loadSortPreference();
             await this.loadInventory();
             this.setupAddRowButton();
             this.setupAddGroupButton();
             this.setupPdfModalHandlers();
+            this.setupSortRadioButtons();
         });
     }
 
@@ -66,6 +70,31 @@ class InventoryManager {
                 this.handleFiles(e.dataTransfer.files);
             };
         }
+    }
+
+    loadSortPreference() {
+        const saved = localStorage.getItem('inventorySortPreference');
+        if (saved) {
+            this.currentSort = saved;
+            this.updateSortRadioButtons();
+        }
+    }
+
+    setupSortRadioButtons() {
+        const radios = document.querySelectorAll('input[name="sort"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                this.setSortOption(e.target.value);
+            });
+        });
+        this.updateSortRadioButtons();
+    }
+
+    updateSortRadioButtons() {
+        const radios = document.querySelectorAll('input[name="sort"]');
+        radios.forEach(radio => {
+            radio.checked = (radio.value === this.currentSort);
+        });
     }
 
     async addGroup() {
@@ -139,14 +168,55 @@ class InventoryManager {
     async loadInventory() {
         try {
             const res = await fetch('/api/get_inventory');
-            const items = await res.json();
-            const tbody = document.getElementById("home-table-body");
-
-            tbody.innerHTML = "";
-            items.forEach(item => this.addRowToUI(item));
+            this.inventoryItems = await res.json();
+            this.renderInventory();
         } catch (error) {
             console.error("Error loading inventory:", error);
         }
+    }
+
+    renderInventory() {
+        const sortedItems = this.applySorting(this.inventoryItems);
+        const tbody = document.getElementById("home-table-body");
+        tbody.innerHTML = "";
+        sortedItems.forEach(item => this.addRowToUI(item));
+    }
+
+    applySorting(items) {
+        const sorted = [...items];
+        
+        switch (this.currentSort) {
+            case 'name-asc':
+                sorted.sort((a, b) => a.name_id.localeCompare(b.name_id, 'de', { numeric: true }));
+                break;
+            case 'name-desc':
+                sorted.sort((a, b) => b.name_id.localeCompare(a.name_id, 'de', { numeric: true }));
+                break;
+            case 'group':
+                sorted.sort((a, b) => {
+                    const groupCmp = a.gruppe.localeCompare(b.gruppe, 'de');
+                    return groupCmp !== 0 ? groupCmp : a.name_id.localeCompare(b.name_id, 'de', { numeric: true });
+                });
+                break;
+            case 'lagerort':
+                sorted.sort((a, b) => {
+                    const lagerCmp = (a.lagerort || '').localeCompare((b.lagerort || ''), 'de');
+                    return lagerCmp !== 0 ? lagerCmp : a.name_id.localeCompare(b.name_id, 'de', { numeric: true });
+                });
+                break;
+            case 'default':
+            default:
+                break;
+        }
+        
+        return sorted;
+    }
+
+    setSortOption(sortOption) {
+        this.currentSort = sortOption;
+        localStorage.setItem('inventorySortPreference', sortOption);
+        this.renderInventory();
+        this.updateSortRadioButtons();
     }
 
     addRowToUI(item) {

@@ -34,12 +34,13 @@
     <div class="content">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h1>Inventurliste</h1>
-            {% if role == 'Administrator' or role == 'Editor'%}
             <div class="header-actions">
+                <button class="square-btn btn-blue" onclick="toggleModal('sortModal', true)" title="Sortierung">⇅</button>
+                {% if role == 'Administrator' or role == 'Editor'%}
                 <button class="square-btn btn-blue" onclick="toggleModal('groupModal', true)">G</button>
                 <button class="square-btn btn-green" id="add-home-row">+</button>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
 
         <table id="home-table">
@@ -75,6 +76,52 @@
             </div>
             <div style="margin-top: 20px;">
                 <button class="normal-btn btn-green" onclick="toggleModal('groupModal', false)">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="sortModal" class="modal">
+        <div class="modal-content">
+            <h3>Sortierung</h3>
+            <div id="sortOptions" style="margin-top: 20px;">
+                <label class="sort-radio-label">
+                    <input type="radio" name="sort" value="default" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Standardsortierung</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="sort" value="name-asc" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Name A-Z</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="sort" value="name-desc" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Name Z-A</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="sort" value="group" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Gruppe</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="sort" value="lagerort" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Lagerort</span>
+                </label>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="normal-btn btn-green" onclick="toggleModal('sortModal', false)">Ok</button>
             </div>
         </div>
     </div>
