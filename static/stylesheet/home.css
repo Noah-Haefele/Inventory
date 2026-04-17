@@ -169,3 +169,24 @@
         text-align: left;
     }
 }
+
+.sort-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background-color: transparent;
+}
+
+.sort-radio-label:hover {
+    background-color: var(--devider);
+}
+
+.sort-radio-label span {
+    color: var(--text-main);
+    font-size: 15px;
+}
