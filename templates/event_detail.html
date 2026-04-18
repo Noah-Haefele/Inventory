@@ -127,7 +127,10 @@
         <a href="{{ url_for('events') }}">← Zurück</a>
         <div style="display: flex; justify-content: space-between;" id="detail-context" data-event-id="{{ event.id }}">
             <h2>{{ event.name }}</h2>
-            <button class="square-btn btn-green" id="open-modal-btn">+</button>
+            <div class="header-actions">
+                <button class="square-btn btn-blue" onclick="toggleSortModal('assignedSortModal', true)" title="Sortierung">⬍</button>
+                <button class="square-btn btn-green" id="open-modal-btn">+</button>
+            </div>
         </div>
         <table id="eventDetail-table">
             <thead>
@@ -146,13 +149,106 @@
 
     <div id="addItemModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h3>Geräte auswählen</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0;">Geräte auswählen</h3>
+                <button class="square-btn btn-blue" onclick="toggleSortModal('checklistSortModal', true)" title="Sortierung">⬍</button>
             </div>
             <div id="inventory-checklist"></div>
             <div style="margin-top: 20px; text-align: right;">
                 <button class="normal-btn btn-red" onclick="toggleModal(false)">Abbrechen</button>
                 <button class="normal-btn btn-green" id="confirm-bulk-add-btn">Speichern</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="assignedSortModal" class="modal">
+        <div class="modal-content">
+            <h3>Sortierung - Zugewiesene Geräte</h3>
+            <div id="assignedSortOptions" style="margin-top: 20px;">
+                <label class="sort-radio-label">
+                    <input type="radio" name="assignedSort" value="default" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Standardsortierung</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="assignedSort" value="name-asc" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Name A-Z</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="assignedSort" value="name-desc" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Name Z-A</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="assignedSort" value="group" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Gruppe</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="assignedSort" value="lagerort" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Lagerort</span>
+                </label>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="normal-btn btn-green" onclick="toggleSortModal('assignedSortModal', false)">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checklistSortModal" class="modal">
+        <div class="modal-content">
+            <h3>Sortierung - Geräte auswählen</h3>
+            <div id="checklistSortOptions" style="margin-top: 20px;">
+                <label class="sort-radio-label">
+                    <input type="radio" name="checklistSort" value="default" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Standardsortierung</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="checklistSort" value="name-asc" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Name A-Z</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="checklistSort" value="name-desc" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Name Z-A</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="checklistSort" value="group" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Gruppe</span>
+                </label>
+                <label class="sort-radio-label">
+                    <input type="radio" name="checklistSort" value="lagerort" class="radio-input">
+                    <div class="radio-btn-custom">
+                        <div class="radio-btn-inner"></div>
+                    </div>
+                    <span>Lagerort</span>
+                </label>
+            </div>
+            <div style="margin-top: 20px;">
+                <button class="normal-btn btn-green" onclick="toggleSortModal('checklistSortModal', false)">Ok</button>
             </div>
         </div>
     </div>

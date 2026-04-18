@@ -8,13 +8,107 @@ class EventDatailManager {
         this.openModalButton = document.getElementById("open-modal-btn");
         this.confirmAddButton = document.getElementById("confirm-bulk-add-btn");
 
+        this.assignedItems = [];
+        this.checklistItems = [];
+        this.currentAssignedSort = 'default';
+        this.currentChecklistSort = 'default';
+
         this.loadAssignedItems(this.eventId);
         this.loadInventoryChecklists();
+        this.loadSortPreferences();
         this.init();
     }
 
     init() {
         this.attachEventListeners();
+        this.setupSortRadioButtons();
+    }
+
+    loadSortPreferences() {
+        const savedAssigned = localStorage.getItem('eventDetailAssignedSort');
+        if (savedAssigned) {
+            this.currentAssignedSort = savedAssigned;
+        }
+        const savedChecklist = localStorage.getItem('eventDetailChecklistSort');
+        if (savedChecklist) {
+            this.currentChecklistSort = savedChecklist;
+        }
+    }
+
+    setupSortRadioButtons() {
+        const assignedRadios = document.querySelectorAll('input[name="assignedSort"]');
+        assignedRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                this.setAssignedSort(e.target.value);
+            });
+        });
+        this.updateAssignedSortRadios();
+
+        const checklistRadios = document.querySelectorAll('input[name="checklistSort"]');
+        checklistRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                this.setChecklistSort(e.target.value);
+            });
+        });
+        this.updateChecklistSortRadios();
+    }
+
+    updateAssignedSortRadios() {
+        const radios = document.querySelectorAll('input[name="assignedSort"]');
+        radios.forEach(radio => {
+            radio.checked = (radio.value === this.currentAssignedSort);
+        });
+    }
+
+    updateChecklistSortRadios() {
+        const radios = document.querySelectorAll('input[name="checklistSort"]');
+        radios.forEach(radio => {
+            radio.checked = (radio.value === this.currentChecklistSort);
+        });
+    }
+
+    setAssignedSort(sortOption) {
+        this.currentAssignedSort = sortOption;
+        localStorage.setItem('eventDetailAssignedSort', sortOption);
+        this.renderAssignedItems();
+        this.updateAssignedSortRadios();
+    }
+
+    setChecklistSort(sortOption) {
+        this.currentChecklistSort = sortOption;
+        localStorage.setItem('eventDetailChecklistSort', sortOption);
+        this.renderChecklistItems();
+        this.updateChecklistSortRadios();
+    }
+
+    applySorting(items, sortType) {
+        const sorted = [...items];
+        
+        switch (sortType) {
+            case 'name-asc':
+                sorted.sort((a, b) => a.name_id.localeCompare(b.name_id, 'de', { numeric: true }));
+                break;
+            case 'name-desc':
+                sorted.sort((a, b) => b.name_id.localeCompare(a.name_id, 'de', { numeric: true }));
+                break;
+            case 'group':
+                sorted.sort((a, b) => {
+                    const groupCmp = a.gruppe.localeCompare(b.gruppe, 'de');
+                    return groupCmp !== 0 ? groupCmp : a.name_id.localeCompare(b.name_id, 'de', { numeric: true });
+                });
+                break;
+            case 'lagerort':
+                sorted.sort((a, b) => {
+                    const lagerCmp = (a.lagerort || '').localeCompare((b.lagerort || ''), 'de');
+                    return lagerCmp !== 0 ? lagerCmp : a.name_id.localeCompare(b.name_id, 'de', { numeric: true });
+                });
+                break;
+            case 'default':
+            default:
+                break;
+        }
+        
+        return sorted;
     }
 
     attachEventListeners() {
@@ -94,11 +188,16 @@ class EventDatailManager {
 
     async loadAssignedItems(eventId) {
         const res = await fetch(`/api/get_event_items/${eventId}`);
-        const items = await res.json();
+        this.assignedItems = await res.json();
+        this.renderAssignedItems();
+    }
+
+    renderAssignedItems() {
+        const sortedItems = this.applySorting(this.assignedItems, this.currentAssignedSort);
         const tbody = document.getElementById("assigned-body");
 
         tbody.innerHTML = "";
-        items.forEach(item => {
+        sortedItems.forEach(item => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
                 <td>${item.gruppe}</td>
@@ -127,10 +226,15 @@ class EventDatailManager {
 
     async loadInventoryChecklists() {
         const res = await fetch('/api/get_inventory');
-        const items = await res.json();
+        this.checklistItems = await res.json();
+        this.renderChecklistItems();
+    }
+
+    renderChecklistItems() {
+        const sortedItems = this.applySorting(this.checklistItems, this.currentChecklistSort);
         const listDiv = document.getElementById("inventory-checklist");
 
-        listDiv.innerHTML = items.map(i => `
+        listDiv.innerHTML = sortedItems.map(i => `
             <div class="check-item">
                 <label>
                     <input type="checkbox" name="activeEvent" 
@@ -164,6 +268,10 @@ document.addEventListener("DOMContentLoaded", () => {
     window.eventDetailManager = new EventDatailManager();
 
     window.toggleModal = (show) => window.eventDetailManager.toggleModal(show);
+    window.toggleSortModal = (modalId, show) => {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.style.display = show ? "flex" : "none";
+    };
     window.UpdateQty = (id, maxAvailable, input) => window.eventDetailManager.UpdateQty(id, maxAvailable, input);
     window.removeAssignment = (id) => window.eventDetailManager.removeAssignment(id);
     window.validateInput = (input, min, max) => window.eventDetailManager.validateInput(input, min, max);
