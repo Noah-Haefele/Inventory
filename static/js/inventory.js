@@ -4,6 +4,7 @@ class InventoryManager {
         this.canEdit = false;
         this.currentPdfItemId = null;
         this.inventoryItems = [];
+        this.searchTerm = "";
         this.currentSort = 'default';
 
         this.initEventListeners();
@@ -15,12 +16,21 @@ class InventoryManager {
                 (USER_ROLE === 'Administrator' || USER_ROLE === 'Editor'));
 
             await this.loadGroups();
+            this.setupSearchbar();
             this.loadSortPreference();
             await this.loadInventory();
             this.setupAddRowButton();
             this.setupAddGroupButton();
             this.setupPdfModalHandlers();
             this.setupSortRadioButtons();
+        });
+    }
+
+    setupSearchbar() {
+        const input = document.getElementById("searchbar");
+        input.addEventListener('input', (e) => {
+            const wert = e.target.value;
+            this.debugSearch(wert);
         });
     }
 
@@ -176,10 +186,33 @@ class InventoryManager {
     }
 
     renderInventory() {
-        const sortedItems = this.applySorting(this.inventoryItems);
         const tbody = document.getElementById("home-table-body");
+        if (!tbody) return;
+
+        // apply searchFilter
+        let itemsToShow = this.searchFilter();
+
+        // apply sorting
+        const sortedItems = this.applySorting(itemsToShow);
+
+        // render
         tbody.innerHTML = "";
-        sortedItems.forEach(item => this.addRowToUI(item));
+        if (sortedItems.length === 0 && this.searchTerm) {
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">no results</td></tr>`;
+        } else {
+            sortedItems.forEach(item => this.addRowToUI(item));
+        }
+    }
+
+    searchFilter() {
+        let itemsToShow = this.inventoryItems;
+        if (this.searchTerm) {
+            itemsToShow = itemsToShow.filter(item => 
+                item.name_id.toLowerCase().includes(this.searchTerm) || 
+                item.gruppe.toLowerCase().includes(this.searchTerm)
+            );
+        }
+        return itemsToShow;
     }
 
     applySorting(items) {
@@ -217,6 +250,13 @@ class InventoryManager {
         localStorage.setItem('inventorySortPreference', sortOption);
         this.renderInventory();
         this.updateSortRadioButtons();
+    }
+
+    debugSearch(term) {
+        if (term === null) return;
+        
+        this.searchTerm = term.toLowerCase();
+        this.renderInventory();
     }
 
     addRowToUI(item) {
