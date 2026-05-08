@@ -128,7 +128,7 @@
         <div style="display: flex; justify-content: space-between;" id="detail-context" data-event-id="{{ event.id }}">
             <h2>{{ event.name }}</h2>
             <div class="header-actions">
-                <input id="searchbar" type="text" placeholder=" Suche...">
+                <input class="searchbar main-searchbar" type="text" placeholder=" Suche...">
                 <button class="square-btn btn-blue" onclick="toggleSortModal('assignedSortModal', true)" title="Sortierung">⬍</button>
                 <button class="square-btn btn-green" id="open-modal-btn">+</button>
             </div>
@@ -152,7 +152,7 @@
     <div class="modal-content">
         <div style="display: flex; gap: 10px; align-items: stretch; margin-bottom: 15px;">
             <h3 style="margin: 0; margin-right: auto; display: flex; align-items: center;">Geräte auswählen</h3>
-            <input id="searchbar" type="text" placeholder=" Suche...">
+            <input class="searchbar checklist-searchbar" type="text" placeholder=" Suche...">
             <button class="square-btn btn-blue" onclick="toggleSortModal('checklistSortModal', true)" title="Sortierung">⬍</button>
         </div>
         <div id="inventory-checklist"></div>

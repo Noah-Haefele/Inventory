@@ -27,7 +27,7 @@ class InventoryManager {
     }
 
     setupSearchbar() {
-        const input = document.getElementById("searchbar");
+        const input = document.getElementsByClassName("searchbar")[0];
         input.addEventListener('input', (e) => {
             const wert = e.target.value;
             this.debugSearch(wert);

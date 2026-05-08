@@ -21,7 +21,41 @@ class EventDatailManager {
 
     init() {
         this.attachEventListeners();
+        this.setupSearchbars();
         this.setupSortRadioButtons();
+    }
+
+    setupSearchbars() {
+        // searchbar for the table of assigned items
+        const mainSearchbar = document.getElementsByClassName("main-searchbar")[0];
+        mainSearchbar.addEventListener('input', (e) => {
+            const wert = e.target.value;
+            if (wert === null) return;
+        
+            this.searchTerm = wert.toLowerCase();
+            this.renderAssignedItems();
+        });
+
+        // searchbar for the inventory checklist in the modal
+        const checklistSearchbar = document.getElementsByClassName("checklist-searchbar")[0];
+        checklistSearchbar.addEventListener('input', (e) => {
+            const wert = e.target.value;
+            if (wert === null) return;
+        
+            this.searchTerm = wert.toLowerCase();
+            this.renderChecklistItems();
+        });
+    }
+
+    searchFilter() {
+        let itemsToShow = this.assignedItems;
+        if (this.searchTerm) {
+            itemsToShow = itemsToShow.filter(item => 
+                item.name_id.toLowerCase().includes(this.searchTerm) || 
+                item.gruppe.toLowerCase().includes(this.searchTerm)
+            );
+        }
+        return itemsToShow;
     }
 
     loadSortPreferences() {
@@ -193,35 +227,45 @@ class EventDatailManager {
     }
 
     renderAssignedItems() {
-        const sortedItems = this.applySorting(this.assignedItems, this.currentAssignedSort);
         const tbody = document.getElementById("assigned-body");
+        if (!tbody) return;
+
+        // apply searchFilter
+        let itemsToShow = this.searchFilter();
+
+        // apply sorting
+        const sortedItems = this.applySorting(itemsToShow, this.currentChecklistSort)
 
         tbody.innerHTML = "";
-        sortedItems.forEach(item => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td>${item.gruppe}</td>
-                <td>${item.name_id}</td>
-                <td>${item.lagerort}</td>
-                <td class="qty-column">
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <div class="number-wrapper" style="width: 80%;">
-                            <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
-                                <input type="number" 
-                                    value="${item.assigned_qty || 0}" 
-                                    min="1" 
-                                    max="${item.anzahl}"
-                                    class="custom-number-input"
-                                    onchange="UpdateQty(${item.assignment_id},${item.anzahl}, this)">
-                            <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
+        if (sortedItems.length === 0 && this.searchTerm) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">no results</td></tr>`;
+        } else {
+            sortedItems.forEach(item => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${item.gruppe}</td>
+                    <td>${item.name_id}</td>
+                    <td>${item.lagerort}</td>
+                    <td class="qty-column">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div class="number-wrapper" style="width: 80%;">
+                                <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
+                                    <input type="number" 
+                                        value="${item.assigned_qty || 0}" 
+                                        min="1" 
+                                        max="${item.anzahl}"
+                                        class="custom-number-input"
+                                        onchange="UpdateQty(${item.assignment_id},${item.anzahl}, this)">
+                                <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
+                            </div>
+                            <small>/ ${item.anzahl}</small>
                         </div>
-                        <small>/ ${item.anzahl}</small>
-                    </div>
-                </td>
-                <td class="action-cell"><button class="del-icon icon" onclick="removeAssignment(${item.assignment_id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button></td>
-            `;
-            tbody.appendChild(tr);
-        })
+                    </td>
+                    <td class="action-cell"><button class="del-icon icon" onclick="removeAssignment(${item.assignment_id})" title="Löschen"><img src="/static/images/delete.svg" alt="Löschen"></button></td>
+                `;
+                tbody.appendChild(tr);
+            })
+        }
     }
 
     async loadInventoryChecklists() {
@@ -231,35 +275,47 @@ class EventDatailManager {
     }
 
     renderChecklistItems() {
-        const sortedItems = this.applySorting(this.checklistItems, this.currentChecklistSort);
         const listDiv = document.getElementById("inventory-checklist");
+        if (!listDiv) return;
 
-        listDiv.innerHTML = sortedItems.map(i => `
-            <div class="check-item">
-                <label>
-                    <input type="checkbox" name="activeEvent" 
-                        class="radio-input inv-checkbox" id="item-${i.id}" value="${i.id}">
-                    <div class="radio-btn-custom">
-                        <div class="radio-btn-inner"></div>
-                    </div>
-                </label>
-                <label for="item-${i.id}" style="flex-grow:1;"><strong>${i.name_id}</strong> (${i.gruppe})</label>
-                <div style="font-size: 0.8em; color: #666;">Verfügbar: ${i.anzahl}</div>
+        // apply search filter
+        let itemsToShow = this.searchFilter();
+
+        // apply sorting
+        const sortedItems = this.applySorting(itemsToShow, this.currentChecklistSort);
+
+        listDiv.innerHTML = "";
+        if (sortedItems.length === 0 && this.searchTerm) {
+            listDiv.innerHTML = `<div style="margin-top: 45px; margin-bottom: 30px; text-align:center; color: #666;">Keine Ergebnisse gefunden</div>`;
+        } else {
+
+            listDiv.innerHTML = sortedItems.map(i => `
+                <div class="check-item">
+                    <label>
+                        <input type="checkbox" name="activeEvent" 
+                            class="radio-input inv-checkbox" id="item-${i.id}" value="${i.id}">
+                        <div class="radio-btn-custom">
+                            <div class="radio-btn-inner"></div>
+                        </div>
+                    </label>
+                    <label for="item-${i.id}" style="flex-grow:1;"><strong>${i.name_id}</strong> (${i.gruppe})</label>
+                    <div style="font-size: 0.8em; color: #666;">Verfügbar: ${i.anzahl}</div>
 
 
-                <div class="number-wrapper" style="width: 8%;">
-                    <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
-                        <input type="number" 
-                            id="qty-${i.id}"
-                            value="1" 
-                            min="1" 
-                            max="${i.anzahl}"
-                            class="custom-number-input"
-                            onblur="validateInput(this, 1, ${i.anzahl})">
-                    <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
-                </div>                
-            </div>
-        `).join('');
+                    <div class="number-wrapper" style="width: 8%;">
+                        <button style="color: red;" class="qty-btn" onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.dispatchEvent(new Event('change'))">-</button>
+                            <input type="number" 
+                                id="qty-${i.id}"
+                                value="1" 
+                                min="1" 
+                                max="${i.anzahl}"
+                                class="custom-number-input"
+                                onblur="validateInput(this, 1, ${i.anzahl})">
+                        <button style="color: green;" class="qty-btn" onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.dispatchEvent(new Event('change'))">+</button>
+                    </div>                
+                </div>
+            `).join('');
+        }
     }
 }
 

@@ -35,7 +35,7 @@
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h1>Inventurliste</h1>
             <div class="header-actions">
-                <input id="searchbar" type="text" placeholder=" Suche...">
+                <input class="searchbar" type="text" placeholder=" Suche...">
                 <button class="square-btn btn-blue" onclick="toggleModal('sortModal', true)" title="Sortierung">⇅</button>
                 {% if role == 'Administrator' or role == 'Editor'%}
                 <button class="square-btn btn-blue" onclick="toggleModal('groupModal', true)">G</button>
