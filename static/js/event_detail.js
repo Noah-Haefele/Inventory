@@ -13,6 +13,9 @@ class EventDatailManager {
         this.currentAssignedSort = 'default';
         this.currentChecklistSort = 'default';
 
+        this.mainSearchbar;
+        this.checklistSearchbar;
+
         this.loadAssignedItems(this.eventId);
         this.loadInventoryChecklists();
         this.loadSortPreferences();
@@ -27,8 +30,8 @@ class EventDatailManager {
 
     setupSearchbars() {
         // searchbar for the table of assigned items
-        const mainSearchbar = document.getElementsByClassName("main-searchbar")[0];
-        mainSearchbar.addEventListener('input', (e) => {
+        this.mainSearchbar = document.getElementsByClassName("main-searchbar")[0];
+        this.mainSearchbar.addEventListener('input', (e) => {
             const wert = e.target.value;
             if (wert === null) return;
         
@@ -37,8 +40,8 @@ class EventDatailManager {
         });
 
         // searchbar for the inventory checklist in the modal
-        const checklistSearchbar = document.getElementsByClassName("checklist-searchbar")[0];
-        checklistSearchbar.addEventListener('input', (e) => {
+        this.checklistSearchbar = document.getElementsByClassName("checklist-searchbar")[0];
+        this.checklistSearchbar.addEventListener('input', (e) => {
             const wert = e.target.value;
             if (wert === null) return;
         
@@ -155,7 +158,13 @@ class EventDatailManager {
     }
 
     toggleModal(show) {
-        document.getElementById("addItemModal").style.display = show ? "flex" : "none";
+        if (show) {
+            document.getElementById("addItemModal").style.display = "flex";
+        } else {
+            document.getElementById("addItemModal").style.display = "none";
+            this.checklistSearchbar.value = "";
+            this.checklistSearchbar.dispatchEvent(new Event('input'));
+        }
     }
 
     UpdateQty = async (id, maxAvailable, input) => {
@@ -271,7 +280,6 @@ class EventDatailManager {
     async loadInventoryChecklists() {
         const res = await fetch('/api/get_inventory');
         this.checklistItems = await res.json();
-        this.renderChecklistItems();
     }
 
     renderChecklistItems() {
