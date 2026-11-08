@@ -1,26 +1,28 @@
 :root {
     /* LIGHT MODE */
-    --bg-page: #ffffff;
+    --bg-page: #f5f7fb;
     --bg-content: #ffffff;
-    --bg-navbar: rgb(193, 244, 255);
-    --bg-table-header: #f0f0f0;
+    --bg-navbar: #f8fbff;
+    --bg-th: #eef2f7;
+    --bg-td: #ffffff;
+    --bg-table-header: #eef2f7;
     --bg-card: #ffffff;
-    --text-main: #000000;
-    --text-muted: #555555;
-    --border-color: #cccccc;
-    --shadow-color: #0000009a;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
     --input-bg: #ffffff;
-    --modal-overlay: rgba(0, 0, 0, 0.5);
-    --accent-blue: #0004ff;
-    --accent-blue-hover: #0004ffbc;
-    --accent-green: #28a745;
-    --accent-green-hover: #28a745bc;
-    --accent-red: #ff7777;
-    --accent-red-hover: #ff7777bc;
-    --dragdrop-background: #acc9ff;
-    --devider: rgba(0, 0, 0, 0.12);
-    --border-radio-color: rgb(148 163 184);
-    --border-radio-color-hover: rgb(148 163 184);
+    --modal-overlay: rgba(15, 23, 42, 0.45);
+    --shadow-color: rgba(15, 23, 42, 0.08);
+    --accent-blue: #4f46e5;
+    --accent-blue-hover: #4338cabc;
+    --accent-green: #16a34a;
+    --accent-green-hover: #16a34abc;
+    --accent-red: #f87171;
+    --accent-red-hover: #f87171bc;
+    --dragdrop-background: #e0e7ff;
+    --devider: #e2e8f0;
+    --border-radio-color: #cbd5e1;
+    --border-radio-color-hover: #94a3b8;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,7 +32,7 @@
         --bg-content: #0f172a;
         --bg-navbar: #001a33;
         --bg-th: #a4d2ff39;
-        --bg-td: #1e293b; 
+        --bg-td: #1e293b;
         --bg-table-header: #2d2d2d;
         --bg-card: #0f172a;
         --text-main: #e0e0e0;
@@ -38,14 +40,20 @@
         --border-color: #a4d2ff39;
         --input-bg: #2d2d2d;
         --modal-overlay: rgba(0, 0, 0, 0.8);
+        --shadow-color: rgba(0, 0, 0, 0.4);
         --accent-blue: #4d66ff;
         --accent-blue-hover: #4d66ffbc;
+        --accent-green: #22c55e;
+        --accent-green-hover: #22c55ebc;
+        --accent-red: #ff7777;
+        --accent-red-hover: #ff7777bc;
         --dragdrop-background: #6c9fff;
-        --devider: rgba(255,255,255,0.12);
+        --devider: rgba(255, 255, 255, 0.12);
         --border-radio-color: rgb(51 65 85);
         --border-radio-color-hover: rgb(100 116 139);
     }
 }
+
 
 * {
     margin: 0;
